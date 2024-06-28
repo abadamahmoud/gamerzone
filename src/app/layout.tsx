@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import SideNav from "@/components/SideNav";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import LoginForm from "@/components/LoginForm";
+import AuthLayout from "./(auth)/layout";
+import LoginPage from "./(auth)/login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const authenticated : Boolean= true;
+  const authenticated : Boolean= false;
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -37,7 +40,11 @@ export default function RootLayout({
       
         </div>}
 
-        {!authenticated && <div>Not Authenticated</div>}
+        {!authenticated && (
+          <AuthLayout>
+            <LoginPage />
+          </AuthLayout>
+        )}
         </ThemeProvider>
       </body>
     </html>
