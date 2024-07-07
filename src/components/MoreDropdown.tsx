@@ -4,26 +4,29 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import {
-  Activity,
-  Bookmark,
+  Bell,
   ChevronLeft,
+  FileQuestion,
   LogOut,
+  Mail,
   Menu,
+  MessageSquareWarning,
   Moon,
   Settings,
   Sun,
+  User,
 } from "lucide-react";
-//import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
-import { Switch } from "./ui/ui/switch";
-import { Label } from "./ui/ui/label";
-
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false);
@@ -55,10 +58,9 @@ function MoreDropdown() {
           onClick={() => setOpen(!open)}
           variant={"ghost"}
           size={"lg"}
-          className="md:w-full !justify-start space-x-2 !px-3"
+          className="md:flex lg:hidden !justify-start space-x-2 !px-3"
         >
           <Menu />
-          <div className="hidden lg:block">More</div>
         </Button>
       </DropdownMenuTrigger>
 
@@ -74,17 +76,31 @@ function MoreDropdown() {
         {!showModeToggle && (
           <>
             <DropdownMenuItem className="menuItem">
+              <User size={20} />
+              <p>Profile</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="menuItem">
+              <Bell size={20} />
+              <p>Notifications</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="menuItem">
               <Settings size={20} />
               <p>Settings</p>
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem className="menuItem">
-              <Activity size={20} />
-              <p>Your activity</p>
+              <Mail size={20} />
+              <p>Business Contact</p>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
-              <Bookmark size={20} />
-              <p>Saved</p>
+              <MessageSquareWarning size={20} />
+              <p>Feedback</p>
             </DropdownMenuItem>
+            <DropdownMenuItem className="menuItem">
+              <FileQuestion size={20} />
+              <p>Help</p>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
 
             <DropdownMenuItem
               className="menuItem"
@@ -94,8 +110,7 @@ function MoreDropdown() {
               <p>Switch appearance</p>
             </DropdownMenuItem>
 
-            <DropdownMenuItem className="menuItem" >
-              {/*onClick={() => signOut()}*/}
+            <DropdownMenuItem className="menuItem" onClick={() => signOut()}>
               <LogOut size={20} />
               <p>Log out</p>
             </DropdownMenuItem>

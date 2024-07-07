@@ -1,16 +1,18 @@
-import Link from "next/link"
-
+import { Gamepad2, SwitchCamera } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "./ui/button";
+import { calSans } from "@/app/fonts";
 
 function Logo() {
   return (
     <Link
-    href={"/"}
-    className="py-2 my-1.5 font-bold px-2 text-3xl border border-  w-full justify-center  md:flex hidden"
+      href={"/dashboard"}
+      className="flex space-x-2"
     >
-      <span className="lg:block hidden">Gamerzone</span>
-      <span className="md:inline lg:hidden ">G</span>
+      <p className={`font-semibold text-xl  ${calSans.className}`}>Gamerzone</p>
+      <Gamepad2 className="h-6 w-6 shrink-0 lg:hidden" />
     </Link>
-  )
+  );
 }
 
-export default Logo
+export default Logo;
