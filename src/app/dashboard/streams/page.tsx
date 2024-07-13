@@ -13,10 +13,10 @@ const StreamsPage = async () => {
 
 
   const content = await fetchTwitchStreams(clientId, accessToken, 100);
-  
+
   return (
     <>
-    <main className='flex flex-wrap gap-6 p-2 md:p-4 md:mt-14 justify-center'>
+    <main className='flex flex-wrap  gap-6 p-2 w-full md:p-4 md:mt-14 sm:flex-col md:flex-row justify-center'>
       {content.map((item, index) => <StreamCard key={index} stream={item}/>)}
      
     </main> 

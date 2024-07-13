@@ -15,13 +15,15 @@ const StreamCard: React.FC<ArticleProps> = ({ stream }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex  flex-col  md:min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md">
+    <div className="flex flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md">
+       
+       
        <Image
         src={stream.thumbnail_url.replace("-{width}x{height}", "")}
         alt={stream.title}
         width={400}
         height={150}
-        className="rounded-sm mb-2 object-cover h-full w-full"
+        className="rounded-sm hover:opacity-50 mb-2 object-cover h-full w-full"
       />
       
       <div className='flex-col  gap-2 p-2 flex '>

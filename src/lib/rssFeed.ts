@@ -22,8 +22,6 @@ const fetchRSSFeed = async (config: RSSFeedConfig): Promise<Article[]> => {
 
       thumbnail = item?.media?.thumbnail?.url || undefined;
       
-      
-      
       if (!thumbnail) {
       const dom = new JSDOM(item.content);
       const imgElement = dom.window.document.querySelector('img') as HTMLImageElement | null;
@@ -45,7 +43,7 @@ const fetchRSSFeed = async (config: RSSFeedConfig): Promise<Article[]> => {
         sourceName: config.sourceName,
         sourceAvatar: config.sourceAvatar,
         thumbnail: thumbnail || "https://www.shutterstock.com/image-illustration/no-picture-available-placeholder-thumbnail-260nw-2179364083.jpg",
-        pubDate: item.pubDate ?? '',
+        pubDate: item.published ?? '',
         reads: 0
       }});
   } catch (error) {
