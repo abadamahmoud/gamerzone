@@ -13,11 +13,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Explore", href: "/dashboard/explore", icon: Telescope },
-  { name: "Live Streams", href: "/dashboard/streams", icon: Tv },
-  { name: "Messages", href: "/dashboard/messages", icon: MessagesSquare },
-  { name: "Communities", href: "/dashboard/communities", icon: Users },
+  { name: "Home", href: "/", icon: Home },
+  /*{ name: "Explore", href: "/explore", icon: Telescope },*/
+  { name: "Live Streams", href: "/streams", icon: Tv },
+  { name: "Messages", href: "/messages", icon: MessagesSquare },
+  { name: "Communities", href: "/communities", icon: Users },
   
 ];
 

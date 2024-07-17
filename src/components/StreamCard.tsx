@@ -22,24 +22,6 @@ const StreamCard: React.FC<ArticleProps> = ({ stream }) => {
       
 
 
-<motion.div
-  className="relative h-full w-full"
-  initial="initial"
-  whileHover="hover"
-  variants={{
-    initial: { opacity: 1 },
-    hover: { opacity: 1 },
-  }}
->
-  {/* Image container */}
-  <motion.div
-    className="h-full w-full"
-    variants={{
-      initial: { opacity: 1 },
-      hover: { opacity: .5 },
-    }}
-    transition={{ duration: 0.3 }}
-  >
     <Image
       src={stream.thumbnail_url.replace("-{width}x{height}", "")}
       alt={stream.title}
@@ -47,45 +29,8 @@ const StreamCard: React.FC<ArticleProps> = ({ stream }) => {
       height={150}
       className="h-full w-full object-cover"
     />
-  </motion.div>
-
-  {/* Overlay that appears on hover */}
-  <motion.div
-    className="absolute inset-0 bg-black bg-opacity-75 flex flex-col items-center gap-4 justify-center"
-    variants={{
-      initial: { opacity: 0 },
-      hover: { opacity: 1 },
-    }}
-    transition={{ duration: 0.3 }}
-  >
-          <Link href={`/dashboard/streams/${stream.title.replaceAll(" ", "-")}`} passHref 
-          rel="noopener noreferrer">
-        <motion.button
-          className="bg-fuchsia-400 flex gap-2 items-center justify-center px-8 py-4 text-xl text-black bg-opacity-75 hover:bg-opacity-100  rounded shadow"
-          variants={{
-            initial: { x: -100, opacity: 0 },
-            hover: { x: 0, opacity: 1 },
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          Summarized with AI <WandSparkles/>
-        </motion.button>
-      </Link>
-      <Link href={stream.thumbnail_url} passHref target="_blank"
-          rel="noopener noreferrer">
-        <motion.button
-          className="bg-white flex gap-2 items-center justify-center px-8 py-4 text-xl text-black bg-opacity-75 hover:bg-opacity-100  rounded shadow"
-          variants={{
-            initial: { x: 100, opacity: 0 },
-            hover: { x: 0, opacity: 1 },
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          Read original article <ExternalLink/>
-          </motion.button>
-      </Link>
-    </motion.div>
-  </motion.div>
+  
+  
 
       
       <div className='flex-col  gap-2 p-2 flex '>

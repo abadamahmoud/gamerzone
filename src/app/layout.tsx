@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 //import { Toaster } from "sonner";
 import AuthProvider from "@/components/AuthProvider";
 import { inter } from "./fonts";
+import SideNav from "@/components/SideNav";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Gamerzone",
@@ -37,7 +39,13 @@ export default function RootLayout({
                * /
               routerConfig={extractRouterConfig(ourFileRouter)}
             />*/}
-            {children}
+            <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
+        <SideNav />
+        <Header/>
+      <div className="w-full md:overflow-y-auto">
+        {children}
+      </div>
+    </div>
             {/*<Toaster richColors />*/}
           </AuthProvider>
         </ThemeProvider>

@@ -44,7 +44,8 @@ const fetchRSSFeed = async (config: RSSFeedConfig): Promise<Article[]> => {
         sourceAvatar: config.sourceAvatar,
         thumbnail: thumbnail || "https://www.shutterstock.com/image-illustration/no-picture-available-placeholder-thumbnail-260nw-2179364083.jpg",
         pubDate: item.published ?? '',
-        reads: 0
+        reads: 0,
+        slug: item.title.replaceAll(" ", "-") ?? '',
       }});
   } catch (error) {
     console.error(`Error fetching data from ${config.source}:`, error);
@@ -57,14 +58,14 @@ export const aggregateRSSFeed = async (): Promise<Article[]> => {
   const results = await Promise.all(
     configs.map(config => fetchRSSFeed(config))
   );
-  //const results = await  fetchRSSFeed(configs[14])
+  
   return results.flat();
 };
 
 
 const configs: RSSFeedConfig[] = [
   { source: 'https://kotaku.com/rss',sourceName: 'kotaku', sourceAvatar: 'https://i.kinja-img.com/image/upload/c_fill,h_200,q_80,w_200/v4sckews2f3bzf0ztbkf.png' },
-  { source: 'https://feeds.ign.com/ign/games-all',sourceName: 'ign', sourceAvatar: 'https://seeklogo.com/images/I/ign-logo-4A32DEDED6-seeklogo.com.png' },
+  /*{ source: 'https://feeds.ign.com/ign/games-all',sourceName: 'ign', sourceAvatar: 'https://seeklogo.com/images/I/ign-logo-4A32DEDED6-seeklogo.com.png' },
   { source: 'https://www.polygon.com/rss/index.xml',sourceName: 'polygon', sourceAvatar: 'https://cdn1.vox-cdn.com/uploads/chorus_asset/file/8402075/941450_609208285758470_875871287_n.0.png' },
   { source: 'https://www.gamespot.com/feeds/mashup/',sourceName: 'gamespot', sourceAvatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk8Q4D4g1-HpqiMi1X0Wb7mLwDfzxKVg4XQw&s' },
   { source: 'https://www.vg247.com/feed/',sourceName: 'vg247', sourceAvatar: 'https://assets.vg247.com/current/img/favicons/favicon-96x96.png' },
@@ -123,6 +124,6 @@ const configs: RSSFeedConfig[] = [
   
   { source: 'https://www.thegamereviews.com/feed/',sourceName: 'thegamerviews', sourceAvatar: 'https://www.thegamereviews.com/favicon.ico' },
   { source: 'https://www.thexboxhub.com/feed/',sourceName: 'theboxhub', sourceAvatar: 'https://www.thexboxhub.com/favicon.ico' },
-  
+  */
 ];
 

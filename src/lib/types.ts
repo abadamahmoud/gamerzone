@@ -6,6 +6,7 @@ export interface Article {
     pubDate: string;
     reads: number;
     sourceName: string;
+    slug: string;
   }
 
 export interface RSSFeedConfig {
@@ -29,5 +30,6 @@ export interface Stream {
     thumbnail_url: string;
     tag_ids: string[];
     tags: string[];
-    is_mature: boolean
+    is_mature: boolean;
+    
 }

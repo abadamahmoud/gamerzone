@@ -6,7 +6,7 @@ import { calSans } from "@/app/fonts";
 function Logo() {
   return (
     <Link
-      href={"/dashboard"}
+      href={"/"}
       className="flex space-x-2"
     >
       <p className={`font-semibold text-xl  ${calSans.className}`}>Gamerzone</p>
