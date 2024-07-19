@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 
-const apiKey = process.env.NEXT_PUBLIC_SMMRY_API_KEY || "DEECD9747F";
+const apiKey = process.env.NEXT_PUBLIC_SMMRY_API_KEY!;
 const SMMRY_API_URL = "https://api.smmry.com";
 
 const ArticlePage = () => {

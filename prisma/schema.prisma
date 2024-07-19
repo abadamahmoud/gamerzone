@@ -9,13 +9,15 @@ generator client {
  
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
+  firstName     String?
+  lastName      String?
   username      String?         @unique
   email         String?         @unique         
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  password      String?
   // Optional for WebAuthn support
   Authenticator Authenticator[]
  

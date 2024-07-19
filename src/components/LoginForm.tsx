@@ -28,7 +28,7 @@ function LoginButton() {
       className="mt-4 w-full"
       variant={"secondary"}
       aria-disabled={pending}
-      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+      onClick={() => signIn("google", { callbackUrl: "/" })}
     >
       Log in with Google
     </Button>
