@@ -11,6 +11,7 @@ import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import ProfileLink from "./ProfileLink";
 
 const links = [
   { name: "Home", href: "/", icon: Home },
@@ -52,6 +53,7 @@ function NavLinks() {
           </Link>
         );
       })}
+      
     </>
   );
 }

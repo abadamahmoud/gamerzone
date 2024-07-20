@@ -1,4 +1,10 @@
 "use client";
+import { signOut } from "next-auth/react"
+import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
 import {
   DropdownMenu,
@@ -21,12 +27,6 @@ import {
   Sun,
   User,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Switch } from "./ui/switch";
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false);
@@ -79,14 +79,28 @@ function MoreDropdown() {
               <User size={20} />
               <p>Profile</p>
             </DropdownMenuItem>
-            <DropdownMenuItem className="menuItem">
+            <DropdownMenuItem className="menuItem" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
+              
+              <LogOut size={20} />
+              <p>Log out</p>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="menuItem"
+              onClick={() => setShowModeToggle(true)}
+            >
+              <Moon size={20} />
+              <p>Switch appearance</p>
+            </DropdownMenuItem>
+
+            {/*<DropdownMenuItem className="menuItem">
               <Bell size={20} />
               <p>Notifications</p>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Settings size={20} />
               <p>Settings</p>
-            </DropdownMenuItem>
+            </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
             <DropdownMenuItem className="menuItem">
               <Mail size={20} />
@@ -100,20 +114,7 @@ function MoreDropdown() {
               <FileQuestion size={20} />
               <p>Help</p>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
 
-            <DropdownMenuItem
-              className="menuItem"
-              onClick={() => setShowModeToggle(true)}
-            >
-              <Moon size={20} />
-              <p>Switch appearance</p>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem className="menuItem" onClick={() => signOut()}>
-              <LogOut size={20} />
-              <p>Log out</p>
-            </DropdownMenuItem>
           </>
         )}
 

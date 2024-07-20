@@ -1,7 +1,6 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
-import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 import { compare } from "bcryptjs";
@@ -13,16 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         signIn: "/login",
       },
       //adapter: PrismaAdapter(prisma),
-  providers: [
-    /*Github({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),*/
-
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
+  providers: [ Google,
 
     Credentials({
       name: "Credentials",
@@ -46,6 +36,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               id: true,
               firstName: true,
               lastName: true,
+              username: true,
               email: true,
               image: true,
               password: true,
@@ -72,6 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           lastName: user.lastName,
           email: user.email,
           image: user.image,
+          username: user.username,
           //role: user.role,
           id: user.id,
         };
@@ -90,13 +82,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         //session.user.role = token.role;
         
       }
+      session.user.username = token.name
       return session;
     },
 
     async jwt({ token, user }) {
       if (user) {
+        console.log("this is user", user)
         //token.role = user.role;
-        //token.sub = user.id;
+        token.sub = user.id;
+        token.name = user.username  ?? user.name?.replace(" ","").toLowerCase() ?? `${user.firstName}${user.lastName}`.toLowerCase();
       }
       return token;
     },
@@ -106,14 +101,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email, name, image, id } = user;
           const [firstName, lastName] = name?.split(" ") || [];
+          const username = `${firstName}${lastName}`.toLowerCase();
           const existingUser = await prisma.user.findUnique({
             where: { email: email || '' },
           });
+
 
            if (!existingUser) {
             // Create new user if not exists
             await prisma.user.create({
               data: {
+                username,
                 email,
                 firstName,
                 lastName,
