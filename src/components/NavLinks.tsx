@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 
 import {
   Home,
@@ -9,29 +9,35 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import ProfileLink from "./ProfileLink";
+import { getSession } from "@/lib/getSession";
 
-const links = [
-  { name: "Home", href: "/", icon: Home },
-  /*{ name: "Explore", href: "/explore", icon: Telescope },*/
-  { name: "Live Streams", href: "/streams", icon: Tv },
-  { name: "Messages", href: "/messages", icon: MessagesSquare },
-  { name: "Communities", href: "/communities", icon: Users },
-  
-];
 
-function NavLinks() {
-  const pathname = usePathname();
+
+async function NavLinks() {
+  const session = await getSession();
+  const user = session?.user;
+
+  const links = [
+    { name: "Home", href: "/", icon: Home },
+    /*{ name: "Explore", href: "/explore", icon: Telescope },*/
+    { name: "Live Streams", href: "/streams", icon: Tv },
+    { name: "Messages", href: `${user ? "/messages" : "login"}`, icon: MessagesSquare },
+    { name: "Communities", href: `${user ? "/communities" : "login"}`, icon: Users },
+    
+  ];
+
+  //const pathname = usePathname();
 
   return (
     <>
     
       {links.map((link) => {
         const LinkIcon = link.icon;
-        const isActive = pathname === link.href;
-
+      //  const isActive = pathname === link.href;
+        const isActive = false
         return (
           <Link
             key={link.name}

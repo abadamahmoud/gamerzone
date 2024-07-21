@@ -27,9 +27,12 @@ function Header() {
           className="bg-transparent text-lg placeholder:text-neutral-600 dark:placeholder:text-neutral-400 flex-1 outline-none"
         />
       </div>
+      <div className="flex items-center">
+
       <ThemeToggle/>
       <TopRightMenu/>
       <MoreDropdown/>
+      </div>
     </header>
   );
 }

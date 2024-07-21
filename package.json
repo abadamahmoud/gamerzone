@@ -31,8 +31,11 @@
     "react-dom": "^18",
     "rss-parser": "^3.13.0",
     "rss-to-json": "^2.1.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "webrtc": "^1.14.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
