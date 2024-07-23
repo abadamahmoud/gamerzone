@@ -6,44 +6,41 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-// schema.prisma
 
 model User {
-  id                String          @id @default(auto()) @map("_id") @db.ObjectId
-  firstName         String?
-  lastName          String?
-  username          String?         @unique
-  email             String?         @unique         
-  emailVerified     DateTime?
-  image             String?
-  accounts          Account[]
-  sessions          Session[]
-  password          String?
-  Authenticator     Authenticator[]
-  messagesSent      Message[]       @relation("SentMessages")
-  messagesReceived  Message[]       @relation("ReceivedMessages")
-  chatRooms         ChatRoomUser[]  @relation("UserChatRooms") // Add this field
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  Authenticator Authenticator[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  UserServers   UserServer[]
+  Channels      Channel[]
+  Messages      Message[]
+  OwnedServers  Server[]  @relation("ServerOwner")
+  UserChannels  UserChannel[]
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
+  id_token          String?
   session_state     String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  oauth_token_secret String?
+  oauth_token       String?
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@unique([provider, providerAccountId])
 }
 
 model Session {
@@ -52,57 +49,74 @@ model Session {
   userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
 }
 
 model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String
-  token      String
-  expires    DateTime
-  @@unique([identifier, token])
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier   String
+  token        String   @unique
+  expires      DateTime
 }
 
 model Authenticator {
-  credentialID         String  @id @map("_id")
-  userId               String  @db.ObjectId
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
-  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@unique([userId, credentialID])
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  secret   String
+  counter  Int      @default(0)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model ChatRoom {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  type      String   // 'group' or 'private'
-  messages  Message[]
-  users     ChatRoomUser[] // Updated relation field
+model Server {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  ownerId     String        @db.ObjectId
+  owner       User          @relation("ServerOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  UserServers UserServer[]
+  Channels    Channel[]     @relation("ServerChannels")
 }
 
-model ChatRoomUser {
+model UserServer {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  chatRoom  ChatRoom @relation(fields: [chatRoomId], references: [id])
-  chatRoomId String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id], name: "UserChatRooms") // Add relation name
   userId    String   @db.ObjectId
+  serverId  String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  role      String
+}
+
+model Channel {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  serverId    String?    @db.ObjectId
+  creatorId   String     @db.ObjectId
+  type        String     // "server" or "direct"
+  name        String?
+  isPrivate   Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  server      Server?    @relation("ServerChannels", fields: [serverId], references: [id], onDelete: Cascade)
+  creator     User       @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  Messages    Message[]
+  UserChannels UserChannel[]
 }
 
 model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  content   String
-  timestamp DateTime @default(now())
-  chatRoom  ChatRoom @relation(fields: [chatRoomId], references: [id])
-  chatRoomId String   @db.ObjectId
-  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
-  senderId  String   @db.ObjectId
-  receiver  User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
-  receiverId String   @db.ObjectId
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  channelId  String     @db.ObjectId
+  senderId   String     @db.ObjectId
+  content    String
+  type       String     // "text", "file", "audio", "video"
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  channel    Channel    @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  sender     User       @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 
-
+model UserChannel {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  channelId String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+}
