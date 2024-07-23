@@ -34,8 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             where: { email },
             select: {
               id: true,
-              firstName: true,
-              lastName: true,
+              name: true,
               username: true,
               email: true,
               image: true,
@@ -59,8 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const userData = {
-          firstName: user.firstName,
-          lastName: user.lastName,
+          name: user.name,
           email: user.email,
           image: user.image,
           username: user.username,
@@ -113,8 +111,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               data: {
                 username,
                 email,
-                firstName,
-                lastName,
+                name,
                 image,
                 //authProviderId: id,
               },

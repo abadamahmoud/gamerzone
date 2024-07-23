@@ -1,66 +1,72 @@
-// server.ts
 import express from 'express';
-import http from 'http';
+import {createServer} from 'http';
 import { Server as SocketIOServer } from 'socket.io';
-import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new SocketIOServer(server, {
   cors: {
-    origin: '*', // Adjust this to your client URL for production
-    methods: ['GET', 'POST'],
-  },
+    origin: "*", // Update with your frontend URL in production
+    methods: ["GET", "POST"]
+  }
 });
-const prisma = new PrismaClient();
 
+// Middleware to parse JSON bodies
 app.use(express.json());
-app.use(cors());
 
+// Handling socket connections
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log(`User connected: ${socket.id}`);
 
+  // Join a specific channel
+  socket.on('joinChannel', async (channelId) => {
+    socket.join(channelId);
+    console.log(`User ${socket.id} joined channel ${channelId}`);
+  });
+
+  // Handle sending messages
   socket.on('sendMessage', async (message) => {
-    const { chatRoomId, senderId, content, receiverId } = message;
-
-    // Ensure IDs are valid
-    if (!chatRoomId || !senderId || !receiverId) {
-      console.error('Invalid message data:', message);
-      return;
-    }
-
     try {
       const newMessage = await prisma.message.create({
         data: {
-          content,
-          timestamp: new Date(),
-          chatRoom: {
-            connect: { id: chatRoomId },
-          },
-          sender: {
-            connect: { id: senderId },
-          },
-          receiver: {
-            connect: { id: receiverId }, // Ensure receiverId is valid
-          },
+          channelId: message.channelId,
+          senderId: message.senderId,
+          content: message.content,
+          type: message.type,
         },
       });
-      io.to(chatRoomId).emit('receiveMessage', newMessage);
+
+      io.to(message.channelId).emit('newMessage', newMessage);
     } catch (error) {
-      console.error('Error creating message:', error);
+      console.error('Error sending message:', error);
     }
   });
 
-  socket.on('joinRoom', (chatRoomId) => {
-    socket.join(chatRoomId);
+  // Handle user joining a server
+  socket.on('joinServer', async (serverId) => {
+    const server = await prisma.server.findUnique({
+      where: { id: serverId },
+      include: { UserServers: true },
+    });
+
+    if (server) {
+      server.UserServers.forEach(userServer => {
+        // Notify users in the server
+        io.to(userServer.userId).emit('serverUpdate', server);
+      });
+    }
   });
 
+  // Handle user disconnection
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log(`User disconnected: ${socket.id}`);
   });
 });
 
-server.listen(3001, () => {
-  console.log('Server is listening on port 3001');
+// Start the server
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

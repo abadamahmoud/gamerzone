@@ -28,13 +28,14 @@ const login = async (formData: FormData) => {
 };
 
 const register = async (formData: FormData) => {
-  const firstName = formData.get("firstname") as string;
-  const lastName = formData.get("lastname") as string;
-
+  const firstNamename = formData.get("firstName") as string;
+  const lastNamename = formData.get("lastName") as string;
+  const name = `${firstNamename} ${lastNamename}`;
+  
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  if (!firstName || !lastName || !email || !password) {
+  if (!name || !email || !password) {
     throw new Error("Please fill all fields");
   }
 
@@ -45,12 +46,12 @@ const register = async (formData: FormData) => {
   if (existingUser) throw new Error("User already exists");
 
   const hashedPassword = await hash(password, 12);
-  const username = `${firstName}${lastName}`.toLowerCase();
+  const username = `${name}`.toLowerCase();
 
   await prisma.user.create({
-    data: { username, firstName, lastName, email, password: hashedPassword },
+    data: { username ,  name, email, password: hashedPassword },
   });
-  console.log(`User created successfully 🥂`);
+  console.log(`User created successfully `);
   redirect("/login");
 };
 

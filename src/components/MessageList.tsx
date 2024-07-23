@@ -1,11 +1,12 @@
-// components/MessageList.tsx
 import React from 'react';
 
 interface Message {
   id: string;
   content: string;
-  timestamp: string;
+  createdAt: string; // Updated to match the schema
   senderId: string;
+  channelId: string;
+  type: string; // "text", "file", "audio", "video"
 }
 
 interface MessageListProps {
@@ -17,7 +18,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => (
     {messages.map((message) => (
       <div key={message.id} className="message">
         <p>{message.content}</p>
-        <span>{new Date(message.timestamp).toLocaleTimeString()}</span>
+        <span>{new Date(message.createdAt).toLocaleTimeString()}</span> {/* Use createdAt */}
       </div>
     ))}
   </div>

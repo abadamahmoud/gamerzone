@@ -1,43 +1,58 @@
-// pages/messages.tsx
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { useSocket } from '@/lib/useSocket';
 import MessageList from '@/components/MessageList';
 import MessageInput from '@/components/MessageInput';
+import MessagesPanel from '@/components/MessagesPanel';
 
 interface Message {
   id: string;
   content: string;
-  timestamp: string;
+  createdAt: string; // Updated to match the schema
   senderId: string;
+  channelId: string;
+  type: string; // "text", "file", "audio", "video"
 }
 
 const MessagesPage = () => {
+  /*
   const socket = useSocket();
-  const [messages, setMessages] = useState<Message[]>([]); // Specify type here
-  const [chatRoomId, setChatRoomId] = useState<string>(''); // Set your chat room ID
-  const [userId, setUserId] = useState<string>(''); // Set the logged-in user's ID
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [chatRoomId, setChatRoomId] = useState<string>(''); // Set your chat room ID here
+  const [userId, setUserId] = useState<string>(''); // Set the logged-in user's ID here
 
   useEffect(() => {
-    socket.emit('joinRoom', chatRoomId);
+    if (chatRoomId) {
+      socket.emit('joinChannel', chatRoomId); // Ensure this matches your server-side implementation
 
-    socket.on('receiveMessage', (message: Message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+      socket.on('newMessage', (message: Message) => { // Ensure this matches your server-side implementation
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
 
-    return () => {
-      socket.off('receiveMessage');
-    };
+      return () => {
+        socket.off('newMessage'); // Ensure this matches your server-side implementation
+      };
+    }
   }, [chatRoomId, socket]);
 
   const handleSendMessage = (content: string) => {
-    socket.emit('sendMessage', { chatRoomId, senderId: userId, content });
+    if (chatRoomId && userId) {
+      const message: Message = {
+        id: '', // Generate or obtain an ID
+        content,
+        createdAt: new Date().toISOString(), // Use current time as a placeholder
+        senderId: userId,
+        channelId: chatRoomId,
+        type: 'text' // Specify message type
+      };
+      socket.emit('sendMessage', message);
+      setMessages((prevMessages) => [...prevMessages, message]); // Optionally add message to local state
+    }
   };
-
+*/
   return (
-    <div className="messages-page mt-40 ml-52">
-      <MessageList messages={messages} />
-      <MessageInput onSend={handleSendMessage} />
+    <div className="messages-page mt-14  h-screen">
+      <MessagesPanel/>
     </div>
   );
 };
