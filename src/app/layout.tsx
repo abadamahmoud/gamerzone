@@ -9,6 +9,8 @@ import AuthProvider from "@/components/AuthProvider";
 import { inter } from "./fonts";
 import SideNav from "@/components/SideNav";
 import Header from "@/components/Header";
+import { UserProvider } from "@/context/UserContext";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Gamerzone",
@@ -39,13 +41,18 @@ export default function RootLayout({
                * /
               routerConfig={extractRouterConfig(ourFileRouter)}
             />*/}
-            <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
-        <SideNav />
-        <Header/>
-      <div className="w-full md:overflow-y-auto">
-        {children}
-      </div>
-    </div>
+            <SessionProvider>
+              <UserProvider>
+              <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
+                <SideNav />
+                <Header/>
+                <div className="w-full md:overflow-y-auto">
+                  {children}
+                </div>
+              </div>   
+              </UserProvider>
+            </SessionProvider>
+            
             {/*<Toaster richColors />*/}
           </AuthProvider>
         </ThemeProvider>

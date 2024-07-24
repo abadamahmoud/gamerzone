@@ -4,6 +4,7 @@ import { useSocket } from '@/lib/useSocket';
 import MessageList from '@/components/MessageList';
 import MessageInput from '@/components/MessageInput';
 import MessagesPanel from '@/components/MessagesPanel';
+import MessagesLayout from '@/components/MessagesLayout';
 
 interface Message {
   id: string;
@@ -48,13 +49,15 @@ const MessagesPage = () => {
       socket.emit('sendMessage', message);
       setMessages((prevMessages) => [...prevMessages, message]); // Optionally add message to local state
     }
-  };
-*/
+  };*/
+
   return (
-    <div className="messages-page mt-14  h-screen">
-      <MessagesPanel/>
+    <div className="  w-full pt-14  h-screen">
+      this is messages content area
     </div>
-  );
+
+
+);
 };
 
 export default MessagesPage;

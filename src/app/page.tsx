@@ -11,13 +11,13 @@ const DashboardPage = async () => {
   
   return (
     <>
-    <main className='flex flex-wrap  gap-6 p-2 w-full md:p-4 md:mt-14 sm:flex-col md:flex-row justify-center'>
+    <main className='flex flex-wrap  gap-6 p-2 w-full md:p-4 mt-14 sm:flex-col md:flex-row justify-center'>
       {content.map((item, index) => 
-      <Link key={index} href={{ pathname: `/articles/${item.slug}`,query: { link: item.link} }}>
+     
       
       
        <ArticleCard  article={item}/>
-      </Link>
+    
       )}
      
     </main> 

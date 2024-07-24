@@ -1,7 +1,8 @@
-//"use client";
+"use client";
 
 import {
   Home,
+  MessageSquare,
   MessagesSquare,
   Telescope,
   Tv,
@@ -9,35 +10,45 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-//import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import ProfileLink from "./ProfileLink";
 import { getSession } from "@/lib/getSession";
+import { useUser } from "@/context/UserContext";
 
 
 
-async function NavLinks() {
-  const session = await getSession();
-  const user = session?.user;
+ function NavLinks() {
+  const { user, loading } = useUser();
+
+  /*if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user) {
+    return <div>Welcome, {user.name}</div>;
+  }
+
+  return <div>Please log in</div>;*/
 
   const links = [
     { name: "Home", href: "/", icon: Home },
     /*{ name: "Explore", href: "/explore", icon: Telescope },*/
     { name: "Live Streams", href: "/streams", icon: Tv },
-    { name: "Messages", href: `${user ? "/messages" : "login"}`, icon: MessagesSquare },
-    { name: "Communities", href: `${user ? "/communities" : "login"}`, icon: Users },
+    { name: "Chat Servers", href: `${user !== undefined? "/chatservers" : "login"}`, icon: MessagesSquare },
+    { name: "Directe Messges", href: `${user !== undefined? "/dms" : "login"}`, icon: MessageSquare },
+    { name: "Communities", href: `${user !== undefined ? "/communities" : "login"}`, icon: Users },
     
   ];
 
-  //const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <>
     
       {links.map((link) => {
         const LinkIcon = link.icon;
-      //  const isActive = pathname === link.href;
-        const isActive = false
+        const isActive = pathname === link.href;
         return (
           <Link
             key={link.name}

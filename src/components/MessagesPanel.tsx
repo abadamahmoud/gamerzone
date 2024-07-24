@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import {
     Select,
@@ -6,10 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-  import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/ui/radio-group"
-import { Button } from './ui/button'
-import Link from 'next/link'
+import MessagesLayout from './MessagesLayout'
   
 
 function Channels() {
@@ -21,32 +19,14 @@ function Channels() {
         {name:"my server", image:"https://images.pexels.com/photos/19545795/pexels-photo-19545795/free-photo-of-nature-parc-photographie-animaliere-paon.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"},
     ]
    
-const [selectedOption, setSelectedOption] = useState<string>('servers'); // Define state here
-const handleOptionChange = (value: string) => {
-    setSelectedOption(value); // Update state here
-  };
+const [] = useState<string>('servers'); // Define state here
 
 
 
   return (
     <div className='flex flex-col items-start gap-2   w-1/4 lg:w-1/6 border-r h-full'>
-        <RadioGroup 
-        name="example" 
-        value={selectedOption} 
-        onValueChange={handleOptionChange} // Use the handler here
-        className='flex gap-2 justify-between items-center w-full p-2'
-      >
-        <RadioGroupItem value="servers" className={`${selectedOption === 'servers' ? "dark:bg-neutral-800 bg-neutral-100" : ""} w-1/2`}>
-          <Link href={"/messages/servers"}>
-            Servers
-          </Link>
-          </RadioGroupItem>
-          <RadioGroupItem value="dms" className={`${selectedOption === 'dms' ? "dark:bg-neutral-800 bg-neutral-100" : ""} w-1/2`}>
-          <Link href={"/messages/dms"}>
-            DMs
-          </Link>
-          </RadioGroupItem>
-      </RadioGroup>
+      
+  <MessagesLayout/>
         
         <Select >
             <SelectTrigger className="w-full text-lg border-none hover:dark:bg-neutral-800 hover:bg-neutral-100 h-12">

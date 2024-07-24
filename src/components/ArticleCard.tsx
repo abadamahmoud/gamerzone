@@ -16,7 +16,7 @@ const ArticleCard: React.FC<ArticleProps> = ({ article }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md">
+    <Link className="flex flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md" href={{ pathname: `/articles/${article.slug}`,query: { link: article.link} }}>
         
         
     <Image
@@ -55,7 +55,7 @@ const ArticleCard: React.FC<ArticleProps> = ({ article }) => {
 
      
       
-    </div>
+    </Link>
   );
 };
 

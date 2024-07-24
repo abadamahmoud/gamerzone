@@ -89,7 +89,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log("this is user", user)
         //token.role = user.role;
         token.sub = user.id;
-        token.name = user.username  ?? user.name?.replace(" ","").toLowerCase() ?? `${user.firstName}${user.lastName}`.toLowerCase();
+        token.name = user.username  ?? user.name?.replace(" ","").toLowerCase() ;
       }
       return token;
     },
@@ -98,8 +98,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google") {
         try {
           const { email, name, image, id } = user;
-          const [firstName, lastName] = name?.split(" ") || [];
-          const username = `${firstName}${lastName}`.toLowerCase();
+          const username = `${name}`.toLowerCase();
           const existingUser = await prisma.user.findUnique({
             where: { email: email || '' },
           });
