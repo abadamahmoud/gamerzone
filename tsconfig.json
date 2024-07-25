@@ -20,8 +20,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["./node_modules/@types", "src/types"],
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./twitch.d.ts",".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./src/types/index.d.ts",".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
