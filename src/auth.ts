@@ -1,6 +1,6 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import Google from "next-auth/providers/google";
 
 import { compare } from "bcryptjs";
@@ -75,7 +75,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async session({ session, token }) {
         
-      if (token?.sub && token?.role) {
+      if (token?.sub ) {
         session.user.id = token.sub;
         //session.user.role = token.role;
         
@@ -86,10 +86,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async jwt({ token, user }) {
       if (user) {
-        console.log("this is user", user)
+        
+        const prismaUser: User | null = await prisma.user.findUnique({
+          where: { authProviderId: user.id },
+        });
+        if (prismaUser) {
+
+          // Store ObjectId as string in token
+          token.sub = prismaUser.id; // `id` is ObjectId in string format
+          token.name = prismaUser.name;
+          token.picture = prismaUser.image;
+          token.email = prismaUser.email;
+        } else {
+          // Handle case where user is not found in database
+          console.error('User not found in database:', user.id);
+        }
+        
         //token.role = user.role;
-        token.sub = user.id;
-        token.name = user.username  ?? user.name?.replace(" ","").toLowerCase() ;
+       
       }
       return token;
     },
@@ -98,7 +112,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google") {
         try {
           const { email, name, image, id } = user;
-          const username = `${name}`.toLowerCase();
+          const username = `${name}`.toLowerCase().replace(" ","").trim();;
           const existingUser = await prisma.user.findUnique({
             where: { email: email || '' },
           });
@@ -112,7 +126,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 email,
                 name,
                 image,
-                //authProviderId: id,
+                authProviderId: id as string,
               },
             });
           }

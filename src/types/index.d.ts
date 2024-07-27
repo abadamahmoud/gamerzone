@@ -38,6 +38,7 @@ declare global {
 export interface User {
   id: string;
   name?: string | null;
+  authProviderId?: string | null;
   username?: string | null;
   password?: string | null;
   email?: string | null;
@@ -99,6 +100,7 @@ export interface Server {
   channelIds: string[];
   createdAt: Date;
   updatedAt: Date;
+  image : string;
   // Relations
   owner: User;
   channels: Channel[];
