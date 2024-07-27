@@ -98,6 +98,7 @@ export interface Server {
   name: string;
   ownerId: string;
   channelIds: string[];
+  membersIds: string[] ;
   createdAt: Date;
   updatedAt: Date;
   image : string;
@@ -113,6 +114,7 @@ export interface Channel {
   creatorId: string;
   type: 'server' | 'direct';
   name?: string | null;
+  membersIds: string[];
   messageIds: string[];
   createdAt: Date;
   updatedAt: Date;

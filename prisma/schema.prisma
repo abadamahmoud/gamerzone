@@ -66,8 +66,9 @@ model Server {
   name       String
   ownerId    String   @db.ObjectId
   channelIds String[] @db.ObjectId
+  membersIds String[] @db.ObjectId // Added this field
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @default(now()) @updatedAt
   image      String?
 
   owner    User      @relation("UserOwnedServers", fields: [ownerId], references: [id], onDelete: Cascade)
@@ -81,8 +82,9 @@ model Channel {
   type       String // "server" or "direct"
   name       String?
   messageIds String[] @db.ObjectId
+  membersIds String[] @db.ObjectId // Added this field
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @default(now()) @updatedAt
 
   server   Server?   @relation("ServerChannels", fields: [serverId], references: [id], onDelete: Cascade)
   creator  User      @relation("UserCreatedChannels", fields: [creatorId], references: [id], onDelete: Cascade)
@@ -95,7 +97,7 @@ model Message {
   senderId  String   @db.ObjectId
   content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   channel Channel @relation("ChannelMessages", fields: [channelId], references: [id], onDelete: Cascade)
   sender  User    @relation("UserSentMessages", fields: [senderId], references: [id], onDelete: Cascade)
