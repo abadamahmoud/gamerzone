@@ -25,6 +25,11 @@ function MessagesLayout() {
                <Plus className='mr-1'/> New Chat Server
           </Button>
           </Link>
+          <Link href="/chatservers/hrbgzbrgânrjgnfb/newchannel" className='w-full'>
+          <Button variant={'outline'} className='w-full h-12 mt-1 text-lg'>
+               <Plus className='mr-1'/> New Chat Channel
+          </Button>
+          </Link>
             
        
            

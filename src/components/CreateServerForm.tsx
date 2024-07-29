@@ -25,7 +25,7 @@ const serverSchema = z.object({
       }
     )
     .optional(),
-  members: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
+  members: z.array(z.object({ label: z.string(), value: z.string() })).min(2).optional(),
 });
 
 const CreateServerForm = () => {
