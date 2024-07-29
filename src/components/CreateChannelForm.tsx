@@ -10,6 +10,9 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:4000');
 
 const channelSchema = z.object({
   channelName: z.string().min(1, 'Channel name is required'),
@@ -54,6 +57,8 @@ const CreateChannelForm = ({ serverId }: { serverId: string }) => {
          console.error('Failed to submit data:', await response.text());
        } else {
          console.log('Data successfully submitted');
+         socket.emit('newChannel');
+
        }
    
        router.push(`/chatservers/${serverId}`);

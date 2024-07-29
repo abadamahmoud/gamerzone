@@ -1,4 +1,40 @@
 import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  // Handle new server creation
+  socket.on('newServer', () => {
+    io.emit('updateServers');
+  });
+
+  // Handle new channel creation
+  socket.on('newChannel', () => {
+    io.emit('updateChannels');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Socket.IO server is running on port ${PORT}`);
+});
+
+/*import express from 'express';
 import {createServer} from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { PrismaClient } from '@prisma/client';
@@ -69,4 +105,4 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+});*/

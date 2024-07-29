@@ -10,7 +10,10 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
 import { useUser } from '@/context/UserContext';
+import { Socket, io } from 'socket.io-client';
 
+
+const socket = io('http://localhost:4000');
 const serverSchema = z.object({
   serverName: z.string().min(1, 'Server name is required'),
   file: z
@@ -31,19 +34,49 @@ const serverSchema = z.object({
 const CreateServerForm = () => {
   const { user, loading } = useUser();
   const [users, setUsers] = useState([]);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const router = useRouter();
   const { register, handleSubmit, control, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(serverSchema),
   });
 
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch('/api/users');
-      const data = await response.json();
-      setUsers(data);
+    // Initialize socket connection
+    const socketIo: Socket = io('http://localhost:3000');
+    setSocket(socketIo);
+
+    // Cleanup function to disconnect the socket on component unmount
+    return () => {
+      if (socket) { // Ensure socket is defined before calling disconnect
+        socket.disconnect();
+      }
     };
+  }, []); 
+
+  useEffect(() => {
+    const abortController = new AbortController(); // Create an AbortController instance
+
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/users', { signal: abortController.signal });
+        const data = await response.json();
+        setUsers(data);
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error('Error fetching users:', error);
+        }
+      }
+    };
+
     fetchUsers();
-  }, []);
+
+    return () => {
+      abortController.abort(); // Abort the fetch request on component unmount
+    };
+  }, []); 
 
   const onSubmit = async (data: any) => {
    
@@ -83,6 +116,8 @@ const CreateServerForm = () => {
         membersIds: data.members.map((member: any) => member.value),
       }),
     });
+    
+    socket?.emit('newServer');
 
     router.push('/chatservers');
   };
