@@ -1,3 +1,4 @@
+import { Images, Mic, Send, Smile } from 'lucide-react';
 import { FC, useState } from 'react';
 
 interface MessageInputProps {
@@ -15,17 +16,20 @@ const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="flex items-center p-4 bg-gray-800 text-white">
+    <div className="flex items-center mr-2 md:mb-4 mb-20 rounded-sm justify-between dark:bg-neutral-900 bg-neutral-200 p-2 gap-2 dark:text-white">
+      <Smile className='hover:cursor-pointer'/>
       <input
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="flex-1 p-2 mr-2 rounded bg-gray-700 text-white"
+        className="flex-1 dark:bg-neutral-900 rounded bg-neutral-200 dark:text-white focus:outline-none"
         placeholder="Type a message..."
       />
-      <button onClick={handleSendMessage} className="px-4 py-2 bg-blue-600 rounded">
-        Send
-      </button>
+      <Images className='hover:cursor-pointer'/>
+      {message.trim().length > 0 ? 
+      <Send onClick={handleSendMessage } className='hover:cursor-pointer'/>:
+      <Mic className='hover:cursor-pointer'/>}
+      
     </div>
   );
 };

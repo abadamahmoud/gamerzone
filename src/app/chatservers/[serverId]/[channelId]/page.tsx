@@ -77,7 +77,7 @@ const ChannelPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex pt-14 flex-col h-full w-full">
+    <div className="flex pt-16  px-3 flex-col h-full w-full">
       {channel && <TopBar channel={channel} />}
       <MessageBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />
