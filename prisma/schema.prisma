@@ -10,7 +10,7 @@ generator client {
 model User {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  authProviderId String          @unique
+  authProviderId String?         @unique
   username       String?         @unique
   password       String?
   email          String?         @unique
@@ -66,29 +66,33 @@ model Server {
   name       String
   ownerId    String   @db.ObjectId
   channelIds String[] @db.ObjectId
-  membersIds String[] @db.ObjectId // Added this field
+  membersIds String[] @db.ObjectId
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
   image      String?
 
   owner    User      @relation("UserOwnedServers", fields: [ownerId], references: [id], onDelete: Cascade)
   channels Channel[] @relation("ServerChannels")
+
+  @@index([ownerId])
 }
 
 model Channel {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   serverId   String?  @db.ObjectId
   creatorId  String   @db.ObjectId
-  type       String // "server" or "direct"
+  type       String
   name       String?
   messageIds String[] @db.ObjectId
-  membersIds String[] @db.ObjectId // Added this field
+  membersIds String[] @db.ObjectId
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 
   server   Server?   @relation("ServerChannels", fields: [serverId], references: [id], onDelete: Cascade)
   creator  User      @relation("UserCreatedChannels", fields: [creatorId], references: [id], onDelete: Cascade)
   messages Message[] @relation("ChannelMessages")
+
+  @@index([serverId])
 }
 
 model Message {
@@ -101,4 +105,7 @@ model Message {
 
   channel Channel @relation("ChannelMessages", fields: [channelId], references: [id], onDelete: Cascade)
   sender  User    @relation("UserSentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([channelId])
+  @@index([senderId])
 }

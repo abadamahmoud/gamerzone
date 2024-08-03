@@ -21,7 +21,7 @@ const channelSchema = z.object({
 
 const CreateChannelForm = ({ serverId }: { serverId: string }) => {
   const { user } = useUser();
-  console.log(user)
+
   const [users, setUsers] = useState([]);
   const router = useRouter();
   const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -39,7 +39,6 @@ const CreateChannelForm = ({ serverId }: { serverId: string }) => {
 
   const onSubmit = async (data: any) => {
      try {
-          console.log(user)
        const response = await fetch(`/api/servers/${serverId}/channels`, {
          method: 'POST',
          headers: {

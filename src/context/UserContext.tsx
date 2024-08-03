@@ -4,9 +4,6 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import { useSession } from 'next-auth/react';
 import { User } from '@/types';
 
-
-
-
 interface UserContextProps {
   user: User | null;
   loading: boolean;
@@ -24,11 +21,30 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'loading') {
-      setLoading(true);
-    } else {
-      setUser(session?.user as User || null);
+
+    const fetchUser = async () => {
+      if (session?.user && session.user.email) {
+
+        try {
+          const response = await fetch(`/api/getUser?email=${session.user.email}`);
+          const data = await response.json();
+          
+          if (response.ok) {
+            setUser(data as User);
+          } else {
+            console.error('Error fetching user:', data.error);
+            setUser(null);
+          }
+        } catch (error) {
+          console.error('Error fetching user:', error);
+          setUser(null);
+        }
+      }
       setLoading(false);
+    };
+
+    if (status !== 'loading') {
+      fetchUser();
     }
   }, [session, status]);
 

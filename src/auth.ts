@@ -73,39 +73,48 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   
   callbacks: {
-    async session({ session, token }) {
-        
-      if (token?.sub ) {
-        session.user.id = token.sub;
-        //session.user.role = token.role;
-        
+    async jwt({ token, user, account }) {
+      // When the user is defined (i.e., during initial login)
+      if (user) {
+        // This is a new login, set authProviderId from the account provider
+        token.authProviderId = account?.providerAccountId;
       }
-      session.user.username = token.name
-      return session;
+
+      // Fetch user data from the database if it doesn't exist on the token
+      if (!token.sub) {
+        try {
+          const prismaUser = await prisma.user.findUnique({
+            where: { authProviderId: token.authProviderId as string },
+          });
+
+          if (prismaUser) {
+            // Store ObjectId as string in token
+            token.sub = prismaUser.id; // `id` is ObjectId in string format
+            token.name = prismaUser.name;
+            token.picture = prismaUser.image;
+            token.email = prismaUser.email;
+          } else {
+            // Handle case where user is not found in database
+            console.error('User not found in database:', token.authProviderId);
+          }
+        } catch (error) {
+          console.error('Error fetching user from database:', error);
+        }
+      }
+
+      return token;
     },
 
-    async jwt({ token, user }) {
-      if (user) {
-        
-        const prismaUser: User | null = await prisma.user.findUnique({
-          where: { authProviderId: user.id },
-        });
-        if (prismaUser) {
-
-          // Store ObjectId as string in token
-          token.sub = prismaUser.id; // `id` is ObjectId in string format
-          token.name = prismaUser.name;
-          token.picture = prismaUser.image;
-          token.email = prismaUser.email;
-        } else {
-          // Handle case where user is not found in database
-          console.error('User not found in database:', user.id);
-        }
-        
-        //token.role = user.role;
-       
+    async session({ session, token }) {
+      // Set session user properties from the token
+      if (token.sub) {
+        session.user.id = token.sub;
+        session.user.name = token.name;
+        session.user.email = token.email as string;
+        session.user.image = token.picture;
       }
-      return token;
+
+      return session;
     },
 
     signIn: async ({ user, account }) => {

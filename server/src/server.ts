@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -24,6 +25,27 @@ io.on('connection', (socket) => {
     io.emit('updateChannels');
   });
 
+  // Join and leave channel logic
+  socket.on('joinChannel', (channelId) => {
+    socket.join(channelId);
+  });
+
+  socket.on('leaveChannel', (channelId) => {
+    socket.leave(channelId);
+  });
+  
+
+  // Handle sending messages
+  socket.on('sendMessage', (message) => {
+    // Validate message data
+    if (!message.channelId || !message.content || !message.senderId) {
+      console.error('Invalid message data:', message);
+      return;
+    }
+    // Emit the message to the specified channel
+    io.to(message.channelId).emit('newMessage', message);
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
@@ -33,76 +55,3 @@ const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
   console.log(`Socket.IO server is running on port ${PORT}`);
 });
-
-/*import express from 'express';
-import {createServer} from 'http';
-import { Server as SocketIOServer } from 'socket.io';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-const app = express();
-const server = createServer(app);
-const io = new SocketIOServer(server, {
-  cors: {
-    origin: "*", // Update with your frontend URL in production
-    methods: ["GET", "POST"]
-  }
-});
-
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-// Handling socket connections
-io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`);
-
-  // Join a specific channel
-  socket.on('joinChannel', async (channelId) => {
-    socket.join(channelId);
-    console.log(`User ${socket.id} joined channel ${channelId}`);
-  });
-
-  // Handle sending messages
-  socket.on('sendMessage', async (message) => {
-    try {
-      const newMessage = await prisma.message.create({
-        data: {
-          channelId: message.channelId,
-          senderId: message.senderId,
-          content: message.content,
-          type: message.type,
-        },
-      });
-
-      io.to(message.channelId).emit('newMessage', newMessage);
-    } catch (error) {
-      console.error('Error sending message:', error);
-    }
-  });
-
-  // Handle user joining a server
-  socket.on('joinServer', async (serverId) => {
-    const server = await prisma.server.findUnique({
-      where: { id: serverId },
-      include: { UserServers: true },
-    });
-
-    if (server) {
-      server.UserServers.forEach(userServer => {
-        // Notify users in the server
-        io.to(userServer.userId).emit('serverUpdate', server);
-      });
-    }
-  });
-
-  // Handle user disconnection
-  socket.on('disconnect', () => {
-    console.log(`User disconnected: ${socket.id}`);
-  });
-});
-
-// Start the server
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});*/

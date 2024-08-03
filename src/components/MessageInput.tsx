@@ -1,31 +1,32 @@
-// components/MessageInput.tsx
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 
 interface MessageInputProps {
-  onSend: (content: string) => void;
+  onSendMessage: (message: string) => void;
 }
 
-const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
-  const [content, setContent] = useState('');
+const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
+  const [message, setMessage] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (content.trim()) {
-      onSend(content);
-      setContent('');
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      onSendMessage(message);
+      setMessage('');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="flex items-center p-4 bg-gray-800 text-white">
       <input
         type="text"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Type a message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className="flex-1 p-2 mr-2 rounded bg-gray-700 text-white"
+        placeholder="Type a message..."
       />
-      <button type="submit">Send</button>
-    </form>
+      <button onClick={handleSendMessage} className="px-4 py-2 bg-blue-600 rounded">
+        Send
+      </button>
+    </div>
   );
 };
 

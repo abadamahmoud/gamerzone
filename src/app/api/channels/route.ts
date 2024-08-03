@@ -4,27 +4,17 @@ import prisma from '@/lib/prisma';
 // Handle GET requests to fetch channels
 export async function GET(req: NextRequest) {
   try {
-    // Extract userId from query parameters
-    const userId = req.nextUrl.searchParams.get('userId');
+    // Extract serverId from query parameters
+    const serverId = req.nextUrl.searchParams.get('serverId');
 
-    if (!userId) {
-      return NextResponse.json({ error: 'Missing user ID' }, { status: 400 });
+    if (!serverId) {
+      return NextResponse.json({ error: 'Missing server ID' }, { status: 400 });
     }
 
-    // Fetch the user to get the list of channelIds
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { channelIds: true }
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    // Fetch channels where channelId is in the user's channelIds
+    // Fetch channels for the given serverId
     const channels = await prisma.channel.findMany({
       where: {
-        id: { in: user.channelIds }
+        serverId: serverId
       }
     });
 

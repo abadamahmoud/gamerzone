@@ -43,7 +43,7 @@ const CreateServerForm = () => {
 
   useEffect(() => {
     // Initialize socket connection
-    const socketIo: Socket = io('http://localhost:3000');
+    const socketIo: Socket = io('http://localhost:4000');
     setSocket(socketIo);
 
     // Cleanup function to disconnect the socket on component unmount
