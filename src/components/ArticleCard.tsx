@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { Article } from '@/lib/types'; 
+import { Article } from '@/types'; 
 import { EllipsisVertical, ExternalLink, WandSparkles } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';

@@ -34,6 +34,30 @@ declare global {
   }
 }
 
+export interface Article {
+  title: string;
+  source: string;
+  sourceAvatar: string;
+  thumbnail: string;
+  pubDate: string;
+  reads: number;
+  pubDate: string;
+    reads: number;
+    sourceName: string;
+    slug: string;
+    link: string;
+}
+
+export interface RSSFeedConfig {
+source: string;
+sourceAvatar: string;
+thumbnail_url: string;
+tag_ids: string[];
+tags: string[];
+is_mature: boolean
+is_mature: boolean;
+}
+
 // User model
 export interface User {
   id: string;

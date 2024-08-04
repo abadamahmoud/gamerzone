@@ -6,7 +6,7 @@ export const getSession = cache(async () => {
 
   if (session?.user?.email) {
     try {
-      const response = await fetch(`http://localhost:3000//api/getUser?email=${session.user.email}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser?email=${encodeURIComponent(session.user.email)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -23,5 +23,6 @@ export const getSession = cache(async () => {
       console.error('Error fetching user data:', error);
     }
   }
+
   return session;
 });

@@ -2,12 +2,13 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import TopBar from '@/components/TopMessgesBar';
 import MessageBody from '@/components/DiscussionBody';
 import MessageInput from '@/components/MessageInput';
 import { useUser } from '@/context/UserContext';
 import useSocket from '@/context/useSocket';
+
 
 const ChannelPage = () => {
   const { serverId, channelId } = useParams();
@@ -16,6 +17,7 @@ const ChannelPage = () => {
   const [channel, setChannel] = useState<any>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchChannelData = async () => {
@@ -36,23 +38,29 @@ const ChannelPage = () => {
   }, [channelId]);
 
   useEffect(() => {
-    if (socket) {
-      socket.emit('joinChannel', channelId);
+    if (!socket) return;
+    socket.emit('joinChannel', channelId);
 
-      socket.on('newMessage', (newMessage) => {
-        try {
-          fetch(`/api/messages?channelId=${channelId}`).then(response => response.json()).then(messages => setMessages(messages))
+    socket.on('newMessage', (newMessage) => {
+      try {
+        fetch(`/api/messages?channelId=${channelId}`).then(response => response.json()).then(messages => setMessages(messages))
+      
+      } catch (error) {
         
-        } catch (error) {
-          
-        }
-      });
+      }
+    });
+    socket.on('channelDeleted', () => {
+      router.push(`/chatservers/${serverId}`);
+     
+    });
 
-      return () => {
-        socket.emit('leaveChannel', channelId);
-        socket.off('newMessage');
-      };
-    }
+    return () => {
+      socket.emit('leaveChannel', channelId);
+      socket.off('newMessage');
+      socket.off('channelDeleted');
+
+    };
+    
   }, [socket, channelId]);
 
   const handleSendMessage = async (messageContent: string) => {
@@ -74,11 +82,48 @@ const ChannelPage = () => {
     }
   };
 
+  const onChannelDelete = async (channelId: string) => {
+    try {
+      const response = await fetch(`/api/channels/${channelId}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete channel');
+      }
+  
+      const result = await response.json();
+
+     
+
+      // Emit an event to update the UI via Socket.IO
+      if (socket) {
+
+        socket.emit('channelDeleted' );
+      }
+
+
+    return result;
+
+
+    } catch (error) {
+      console.error('Error deleting channel:', error);
+    }
+   
+  };
+
+  const onChannelLeave = (channelId: string) => {
+    // Your logic for leaving the channel
+    console.log(`Left channel ${channelId}`);
+  };
+
+
   if (error) return <div>{error}</div>;
 
   return (
     <div className="flex pt-16  px-3 flex-col h-full w-full">
-      {channel && <TopBar channel={channel} />}
+      {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} 
+      onChannelLeave={onChannelLeave} />}
       <MessageBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />
     </div>

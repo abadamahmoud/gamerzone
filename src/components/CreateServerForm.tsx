@@ -13,7 +13,7 @@ import { useUser } from '@/context/UserContext';
 import { Socket, io } from 'socket.io-client';
 
 
-const socket = io('http://localhost:4000');
+
 const serverSchema = z.object({
   serverName: z.string().min(1, 'Server name is required'),
   file: z

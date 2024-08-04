@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const MessagesLayout = () => {
   const { user, loading } = useUser();
@@ -13,7 +14,8 @@ const MessagesLayout = () => {
   const [channels, setChannels] = useState<any[]>([]);
   const [selectedServer, setSelectedServer] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
-
+  const router = useRouter()
+  
   useEffect(() => {
     if (user) {
       const fetchServers = async () => {
@@ -40,11 +42,11 @@ const MessagesLayout = () => {
           const response = await fetch(`/api/channels?serverId=${serverId}`);
           const data = await response.json();
           setChannels(data);
+          router.push(`/chatservers/${selectedServer}`)
         } catch (err) {
           setError('Failed to fetch channels');
         }
       };
-
       fetchChannels(selectedServer);
     }
   }, [selectedServer]);
@@ -55,10 +57,14 @@ const MessagesLayout = () => {
         const response = await fetch(`/api/servers?userId=${user?.id}`);
         const data = await response.json();
         setServers(data);
+        if (data.length > 0) {
+          setSelectedServer(data[0].id);
+        }
       });
 
       socket.on('updateChannels', async () => {
         if (selectedServer) {
+          
           const response = await fetch(`/api/channels?serverId=${selectedServer}`);
           const data = await response.json();
           setChannels(data);

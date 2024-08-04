@@ -55,7 +55,6 @@ const CreateChannelForm = ({ serverId }: { serverId: string }) => {
        if (!response.ok) {
          console.error('Failed to submit data:', await response.text());
        } else {
-         console.log('Data successfully submitted');
          socket.emit('newChannel');
 
        }

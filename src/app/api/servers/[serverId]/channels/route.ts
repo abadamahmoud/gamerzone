@@ -2,7 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/getSession';
 import { NextRequest, NextResponse } from 'next/server';
-import { useUser } from '@/context/UserContext';
+
+
+
+
 
 export async function POST(req: NextRequest, res: NextApiResponse) {
   const session = await getSession();
@@ -63,7 +66,6 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
   
 }
 
-
 export async function DELETE(req: Request, { params }: { params: { serverId: string } }) {
   const session = await getSession();
 
@@ -73,10 +75,17 @@ export async function DELETE(req: Request, { params }: { params: { serverId: str
 
   const serverId = params.serverId;
 
-
   try {
+    // Fetch server and its channels and messages
     const server = await prisma.server.findUnique({
       where: { id: serverId },
+      include: {
+        channels: {
+          include: {
+            messages: true, // Include messages in the channels
+          },
+        },
+      },
     });
 
     if (!server) {
@@ -86,10 +95,51 @@ export async function DELETE(req: Request, { params }: { params: { serverId: str
     if (server.ownerId !== session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    
+    // Fetch all users who are members of the server
+    const members = await prisma.user.findMany({
+      where: {
+        serverIds: { has: serverId },
+      },
+    });
 
-    // Delete all channels and their messages within the server
+    // Collect all channel IDs and message IDs and members IDs
+    const channelIds = server.channels.map(channel => channel.id);
+    const messageIds = server.channels.flatMap(channel => channel.messages.map(message => message.id));
+    const memberIds = members.map(member => member.id);
+
+    for (const memberId of memberIds) {
+      // Fetch user details
+      const user = await prisma.user.findUnique({
+        where: { id: memberId },
+      });
+
+      if (user) {
+        // Remove channel references from user
+        await prisma.user.update({
+          where: { id: memberId },
+          data: {
+            channelIds: {
+              set: user.channelIds.filter(id => !channelIds.includes(id)),
+            },
+            sentMessages: {
+              disconnect: messageIds.map(messageId => ({ id: messageId })),
+            },
+            serverIds: {
+              set: user.serverIds.filter(id => id !== serverId),
+            },
+          },
+        });
+      }
+    } 
+    // Delete all messages
+    await prisma.message.deleteMany({
+      where: { id: { in: messageIds } },
+    });
+
+    // Delete all channels
     await prisma.channel.deleteMany({
-      where: { serverId: serverId },
+      where: { id: { in: channelIds } },
     });
 
     // Delete the server
