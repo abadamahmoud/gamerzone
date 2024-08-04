@@ -29,12 +29,23 @@ io.on('connection', (socket) => {
   socket.on('joinChannel', (channelId) => {
     socket.join(channelId);
   });
+  socket.on('joinServer', (serverId) => {
+    socket.join(serverId);
+  });
 
-  socket.on('leaveChannel', (channelId) => {
-    socket.leave(channelId);
+  socket.on('leaveServer', (serverId) => {
+    socket.leave(serverId);
   });
   
+  socket.on('channelDeleted', () => {
+    io.emit('channelDeleted'); 
+    io.emit('updateChannels');// Broadcast to all clients
+  });
 
+  socket.on('serverDeleted', () => {
+    io.emit('serverDeleted'); 
+    io.emit('updateServers');// Broadcast to all clients
+  });
   // Handle sending messages
   socket.on('sendMessage', (message) => {
     // Validate message data
