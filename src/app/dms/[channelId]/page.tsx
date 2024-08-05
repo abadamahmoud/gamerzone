@@ -8,6 +8,7 @@ import MessageBody from '@/components/DiscussionBody';
 import MessageInput from '@/components/MessageInput';
 import { useUser } from '@/context/UserContext';
 import useSocket from '@/context/useSocket';
+import DiscussionBody from '@/components/DiscussionBody';
 
 
 const ChannelPage = () => {
@@ -121,10 +122,10 @@ const ChannelPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex px-1 flex-col h-full w-full">
+    <div className="flex mt-1  px-3 flex-col h-full w-full">
       {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} 
       onChannelLeave={onChannelLeave} />}
-      <MessageBody messages={messages} />
+      <DiscussionBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />
     </div>
   );

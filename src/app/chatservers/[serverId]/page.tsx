@@ -83,15 +83,16 @@ const ServerPage = () => {
   return (
     <div className='border rounded-sm w-full p-16  h-auto mb-4 mt-16 my-auto items-center flex flex-col mr-2'>
       <h1 className='text-3xl border text-left rounded-sm p-4 w-full'>Server: {server?.name}</h1>
-      <button className='border rounded-sm w-full text-xl p-4 my-2' onClick={handleDeleteServer}>
-        Delete This Server
-      </button>
+      
       <ul className='border rounded-sm p-4 w-full  '>
         <p className='text-2xl underline mb-4'>Channels in this servers:</p>
         {channels.map((channel) => (
           <li className='my-2 text-xl overflow-y-auto' key={channel.id}>{channel.name}</li>
         ))}
       </ul>
+      <button className='border text-red-500 rounded-sm w-full text-xl p-4 my-2' onClick={handleDeleteServer}>
+        Delete This Server
+      </button>
     </div>
   );
 };

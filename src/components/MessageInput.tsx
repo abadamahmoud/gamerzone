@@ -16,7 +16,7 @@ const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="flex items-center mr-2 md:mb-4 mb-20 rounded-sm justify-between dark:bg-neutral-900 bg-neutral-200 p-2 gap-2 dark:text-white">
+    <div className="flex items-center mr-2 md:mb-2 mb-20 rounded-sm justify-between dark:bg-neutral-900 bg-neutral-200 p-2 gap-2 dark:text-white">
       <Smile className='hover:cursor-pointer'/>
       <input
         type="text"
