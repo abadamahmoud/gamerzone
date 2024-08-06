@@ -30,7 +30,7 @@ const DiscussionBody: FC<DiscussionBodyProps> = ({ messages }) => {
           )}
           <div className="w-fit">
             <p
-              className={`w-fit py-2 px-4 rounded-2xl ${
+              className={`w-fit text-balance py-2 px-4 rounded-2xl ${
                  isSameSenderAsPrevious ? 
                   `${user?.id === message.senderId ? ` bg-rose-500 dark:bg-rose-800 rounded-se-sm ${isSameSenderAsNext && "rounded-ee-sm"}`:
                   `ml-12  bg-neutral-200 rounded-ss-sm ${isSameSenderAsNext && "rounded-es-sm"} dark:bg-neutral-900`}`:

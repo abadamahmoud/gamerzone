@@ -18,7 +18,6 @@ const Dms = () => {
         try {
           const response = await fetch(`/api/channels?userId=${user?.id}`);
           const data = await response.json();
-          console.log(data);
           setChannels(data);
 
           if (data.length > 0) {
@@ -34,7 +33,7 @@ const Dms = () => {
 
   // display channels in scroll area , each channel is a link
   return (
-    <div className="md:w-2/5 px-4 items-center justify-start md:justify-start md:flex-col flex-row-reverse md:gap-2 gap-14  flex h-16 md:h-full w-full lg:w-1/4">
+    <div className="md:w-1/2 lg:w-2/5 px-2 items-center justify-start md:justify-start md:flex-col flex-row-reverse md:gap-2 gap-14  flex h-16 md:h-full w-full xl:w-1/3">
       <Link href={`/dms/newchannel`} className="md:w-full  w-auto">
         <Button variant={'outline'} className="w-full hidden md:flex h-12 text-lg">
           <Plus className="mr-1" /> New Discussion
@@ -50,10 +49,10 @@ const Dms = () => {
             <Link
               key={channel.id}
               href={`/dms/${channel.id}`}
-              className="w-full p-2 justify-start flex gap-2  items-start text-2xl h-fit hover:dark:bg-neutral-800 md:hover:bg-neutral-100"
+              className="w-full p-2 justify-start flex gap-2  items-center text-lg h-fit hover:dark:bg-neutral-800 hover:bg-neutral-100"
             >
-              <img src={channel.image} className='h-12 md:h-8 md:w-8 w-12 rounded-full object-cover'/>
-              <p className='md:inline hidden'>{channel.name}</p>
+              <img src={channel.image} className='h-8 w-8 rounded-full object-cover'/>
+              <p className='inline text-nowrap'>{channel.name}</p>
                
             </Link>
           ))
@@ -64,14 +63,13 @@ const Dms = () => {
       <Carousel className="w-full ml-12 md:hidden ">
       <CarouselContent className="-ml-1">
         {channels.map((channel) => (
-          <CarouselItem key={channel.id} className="pl-1 basis-1/6">
+          <CarouselItem key={channel.id} className="pl-2 first:pl-1 last:pr-1 basis-auto">
             <Link
               key={channel.id}
               href={`/dms/${channel.id}`}
-              className="  md:w-full w-fit justify-start flex md:gap-2  items-start text-2xl  md:hover:dark:bg-neutral-800 md:hover:bg-neutral-100"
             >
-              <img src={channel.image} className='h-12 md:h-8 md:w-8 w-12 rounded-full object-cover'/>
-              <p className='md:inline hidden'>{channel.name}</p>
+              <img src={channel.image} className='h-12 w-12  rounded-full object-cover'/>
+
                
             </Link>
           </CarouselItem>

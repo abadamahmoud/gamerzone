@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import TopBar from '@/components/TopMessgesBar';
-import MessageBody from '@/components/DiscussionBody';
 import MessageInput from '@/components/MessageInput';
 import { useUser } from '@/context/UserContext';
 import useSocket from '@/context/useSocket';
@@ -51,7 +50,7 @@ const ChannelPage = () => {
       }
     });
     socket.on('channelDeleted', () => {
-      router.push(`/chatservers/${serverId}`);
+      router.push(`/dms`);
      
     });
 
@@ -83,10 +82,11 @@ const ChannelPage = () => {
     }
   };
 
-  const onChannelDelete = async (channelId: string) => {
+  const onDiscussionDelete = async (channelId: string) => {
     try {
       const response = await fetch(`/api/channels/${channelId}`, {
         method: 'DELETE',
+        body: JSON.stringify({ senderId: user?.id })
       });
   
       if (!response.ok) {
@@ -123,7 +123,7 @@ const ChannelPage = () => {
 
   return (
     <div className="flex mt-1  px-3 flex-col h-full w-full">
-      {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} 
+      {channel && <TopBar channel={channel} onDiscussionDelete={onDiscussionDelete} 
       onChannelLeave={onChannelLeave} />}
       <DiscussionBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />
