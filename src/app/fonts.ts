@@ -1,4 +1,6 @@
 import { Inter } from "next/font/google";
+import { Chakra_Petch } from 'next/font/google';
+
 import localFont from "next/font/local";
 
 export const calSans = localFont({
@@ -6,3 +8,4 @@ export const calSans = localFont({
 });
 
 export const inter = Inter({ subsets: ["latin"] });
+export const chakraPetch = Chakra_Petch({weight: "700", style: "normal",subsets: ["latin"] })

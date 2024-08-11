@@ -1,7 +1,8 @@
-import { Gamepad2, SwitchCamera } from "lucide-react";
+
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
-import { calSans } from "@/app/fonts";
+
+import { calSans, chakraPetch } from "@/app/fonts";
+
 
 function Logo() {
   return (
@@ -9,8 +10,9 @@ function Logo() {
       href={"/"}
       className="flex space-x-2"
     >
-      <p className={`font-semibold text-xl  ${calSans.className}`}>Gamerzone</p>
-      <Gamepad2 className="h-6 w-6 shrink-0 lg:hidden" />
+      <p className={`font-semibold text-3xl hidden border-2 dark:border-white border-black hover:dark:bg-neutral-700 hover:bg-neutral-200  rounded-md px-2 lg:flex ${chakraPetch.className}`}>Gamerzone</p>
+      <p className={`font-semibold text-3xl border-2 dark:border-white border-black hover:dark:bg-neutral-700 hover:bg-neutral-200 rounded-md px-2 flex lg:hidden  ${chakraPetch.className}`}>G</p>
+      
     </Link>
   );
 }
