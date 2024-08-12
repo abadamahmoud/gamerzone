@@ -17,11 +17,8 @@ const StreamsPage = async () => {
 
   return (
     <>
-    <main className='flex flex-wrap  gap-6 p-2 w-full md:p-4 md:mt-14 sm:flex-col md:flex-row justify-center'>
-      {content.map((item, index) => 
-      <Link key={index} href={{ pathname: `/streams/${item.user_login}`,/*query: { link: item.user_login}*/ }}>
-      <StreamCard  stream={item}/>
-     </Link>)}
+    <main className='flex flex-wrap  gap-6 p-2 w-full md:p-4 mt-16 sm:flex-col md:flex-row justify-center'>
+      {content.map( item => <StreamCard  stream={item} key={item.user_login}/>)}
     </main> 
     <h2>That 's All For You Today :)</h2>
     </>

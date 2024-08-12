@@ -12,7 +12,7 @@ function Header() {
 
 
   return (
-    <header className="fixed right-0 bg-white top-0 flex items-center justify-between dark:bg-neutral-950 w-full z-50 border-b border-zinc-300 dark:border-neutral-700 px-3 py-2 sm:-ml-6">
+    <header className="fixed right-0 z-[1000] bg-white top-0 flex items-center justify-between dark:bg-neutral-950 w-full  border-b border-zinc-300 dark:border-neutral-700 px-3 py-2 sm:-ml-6">
       <Logo/>
       <div className="flex ml-4 items-center text-neutral-600 dark:text-neutral-400 bg-zinc-100  md:w-[400px] dark:bg-neutral-800 gap-x-2 rounded-md px-3.5 py-2">
         <Search className="h-5 w-5" />

@@ -1,7 +1,7 @@
 "use client"
 import TwitchEmbed from '@/components/TwitchEmbed'; // Adjust the path as necessary
 
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 const StreamPage = () => {
   const Params = useParams();
@@ -11,12 +11,12 @@ const StreamPage = () => {
 
 
   return (
-    <div className="container mx-auto mt-14 p-4">
+    <div className="h-screen w-full mx-auto sm:pb-20 md:pb-0 pt-[60px] ">
       
-            <a href="/streams"  rel="noopener noreferrer"        className="text-blue-500 mb-8 block border w-fit p-2 mt-2">
+            {/*<Link href="/streams"  rel="noopener noreferrer"        className="text-blue-500 mb-2 block border w-fit p-2 ">
               Back to Streams
             
-            </a>
+            </Link>*/}
           
           
 

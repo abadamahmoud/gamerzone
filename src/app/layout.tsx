@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -25,28 +24,26 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-            >
-            <AuthProvider>
-              <SessionProvider>
-                <UserProvider>
-
-                  <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
-                    <SideNav />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            <SessionProvider>
+              <UserProvider>
+                <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
+                  <SideNav />
+                  <div className="flex-1 flex flex-col md:overflow-y-auto">
                     <Header />
-                    <div className="w-full md:overflow-y-auto">
-                      {children}
-                    </div>
+                    <main className="flex-1 overflow-y-auto">{children}</main>
                   </div>
-
-                </UserProvider>
-              </SessionProvider>
-            </AuthProvider>
-          </ThemeProvider>
+                </div>
+              </UserProvider>
+            </SessionProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
