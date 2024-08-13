@@ -1,14 +1,17 @@
-
+"use client"
 import MoreDropdown from "./MoreDropdown";
 import TopRightMenu from "./TopRightMenu";
 
 import ThemeToggle from "./ThemeToggle";
 import Logo from "./Logo";
 import { Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 
 
 function Header() {
+  const pathname = usePathname();
+  if (pathname === "/login" || pathname === "/register") return;
 
 
   return (

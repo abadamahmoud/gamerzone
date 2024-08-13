@@ -1,11 +1,14 @@
-
+"use client"
 import NavLinks from "./NavLinks";
 import Footer from "./Footer";
+import { usePathname } from "next/navigation";
 
 
 
 
 const  SideNav = () => {
+  const pathname = usePathname();
+  if (pathname === "/login" || pathname === "/register") return;
 
 
 

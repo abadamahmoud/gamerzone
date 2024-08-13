@@ -2,18 +2,15 @@
 
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { getSession } from "@/lib/getSession";
-import { signOut } from "@/auth";
-import ProfileLink from "./ProfileLink";
 
-const Navbar = async () => {
-  const session = await getSession();
-  const user = session?.user;
+import { signOut } from "next-auth/react"
+import ProfileLink from "./ProfileLink";
+import { useUser } from "@/context/UserContext";
+
+const Navbar =  () => {
+  const {user} = useUser();
 
   return (
-  
-      
-
       <ul className="hidden lg:flex items-center space-x-4 list-none">
         {!user ? (
           <>
@@ -39,16 +36,11 @@ const Navbar = async () => {
             <li>
              <ProfileLink user={user}/>
             </li>
-            <form
-              action={async () => {
-                "use server";
-                await signOut();
-              }}
-            >
-              <Button type="submit" variant={"ghost"}>
+            
+              <Button variant={"ghost"} onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
                 Logout
               </Button>
-            </form>
+          
           
           </>
         )}
