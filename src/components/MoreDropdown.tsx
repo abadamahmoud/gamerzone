@@ -27,6 +27,7 @@ import {
   Sun,
   User,
 } from "lucide-react";
+import Link from "next/link";
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false);
@@ -102,18 +103,35 @@ function MoreDropdown() {
               <p>Settings</p>
             </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
+           <Link href={"/contact"}>
             <DropdownMenuItem className="menuItem">
-              <Mail size={20} />
-              <p>Business Contact</p>
-            </DropdownMenuItem>
+                <Mail size={20} />
+                <p>Business Contact</p>
+              </DropdownMenuItem> 
+            </Link>
+           <Link href={"/feedback"}>
             <DropdownMenuItem className="menuItem">
-              <MessageSquareWarning size={20} />
-              <p>Feedback</p>
-            </DropdownMenuItem>
+                <MessageSquareWarning size={20} />
+                <p>Feedback</p>
+              </DropdownMenuItem> 
+            </Link>
+           <Link href={"/help"}>
+              <DropdownMenuItem className="menuItem">
+                <FileQuestion size={20} />
+                <p>Help</p>
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+            <Link href={"/legal/terms"}>
+              <DropdownMenuItem className="menuItem">
+                <p>Terms of Use</p>
+              </DropdownMenuItem>
+            </Link>
+           <Link href={"/legal/privacy"}>
             <DropdownMenuItem className="menuItem">
-              <FileQuestion size={20} />
-              <p>Help</p>
-            </DropdownMenuItem>
+                <p>Privacy Policy</p>
+              </DropdownMenuItem>
+            </Link> 
 
           </>
         )}

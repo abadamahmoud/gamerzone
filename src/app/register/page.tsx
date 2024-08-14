@@ -4,73 +4,89 @@ import { Label } from "@/components/ui/label";
 import { getSession } from "@/lib/getSession";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import LoginHeader from "@/components/LoginHeader";
 
-const Register = async () => {
+const RegisterPage = async () => {
   const session = await getSession();
   const user = session?.user;
   if (user) redirect("/");
 
   return (
-    <div className="mt-10 max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white border border-[#121212]  dark:bg-black">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to MyShop
-      </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Please provide all the necessary information
-      </p>
+    <div className="w-full h-full xl:px-96">
+    <div className=" h-full w-full max-w-[480px] mx-auto  p-4 flex items-center flex-col">
+      <LoginHeader/>
 
-      <form className="my-8" action={register}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <div className="flex flex-col">
-            <Label htmlFor="firstname" className="mb-2">
+
+      <form className="px-8 h-full w-full" action={register}>
+        
+            <Label htmlFor="firstname" className="text-md dark:text-gray-400 text-gray-600">
               First Name
             </Label>
             <Input
               id="firstname"
-              placeholder="Tyler"
+              placeholder="John"
               type="text"
               name="firstname"
+              className="my-2 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
             />
-          </div>
           <div className="flex flex-col">
-            <Label htmlFor="lastname" className="mb-2">
+            <Label htmlFor="lastname" className="text-md dark:text-gray-400 text-gray-600">
               Last Name
             </Label>
             <Input
               id="lastname"
-              placeholder="Durden"
+              placeholder="Doe"
               type="text"
               name="lastname"
+              className="my-2 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
             />
           </div>
-        </div>
 
-        <Label htmlFor="email">Email Address</Label>
+        <Label htmlFor="email" className="text-md dark:text-gray-400 text-gray-600">Email Address</Label>
         <Input
           id="email"
-          placeholder="projectmayhem@fc.com"
+          placeholder="johndoe@gmail.com"
           type="email"
           name="email"
+          className="my-2 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
         />
 
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="text-md dark:text-gray-400 text-gray-600">Password</Label>
         <Input
           id="password"
-          placeholder="***********"
+          placeholder="**********"
           type="password"
           name="password"
-          className="mb-5"
+          className="my-2 mb-6 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
+          
         />
 
-        <button className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]">
-          Sign up &rarr;
-        </button>
+<button className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
+  Sign up &rarr;
+</button>
+<p className="text-sm mt-2 text-gray-600 text-center">By signing up, you agree to our <Link href="/legal/terms" className="text-blue-900 "> Terms of Use</Link> and <Link href="/legal/privacy" className="text-blue-900 "> Privacy Policy</Link> .</p>
 
-        <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-          Already have an account? <Link href="/login">Login</Link>
+<div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+
+        <p className="text-start text-neutral-600 text-sm flex justify-center gap-3 max-w-sm mt-4 dark:text-neutral-300">
+          Already have an account? <Link href="/login" className="text-blue-500 hover:text-blue-800 font-bold"> Login Here</Link>
         </p>
+        
+        
       </form>
+
+        
+      </div>
     </div>
+       
+  
   );
 };
-export default Register;
+export default RegisterPage;
+
+
+
+
+
+
+

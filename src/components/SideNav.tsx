@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 
 const  SideNav = () => {
   const pathname = usePathname();
-  if (pathname === "/login" || pathname === "/register") return;
+  if (pathname === "/login" || pathname === "/register" || pathname === "/legal/terms" || pathname === "/legal/privacy") return;
 
 
 

@@ -3,14 +3,14 @@ import { chakraPetch } from "../app/fonts";
 
 const LoginHeader = () => {
   return (
-    <div className=" bg-red-500 w-full">
+    <div className="w-full">
       
         <h1
           className={`font-semibold text-center text-7xl border-2 dark:border-white border-black rounded-md px-2 ${chakraPetch.className}`}
         >
           Gamerzone
         </h1>
-        <h2 className="text-4xl font-extralight">Join Now!</h2>
+        <h2 className="text-4xl font-extralight my-4">Join Now!</h2>
       
           <form
             action={async () => {
@@ -19,7 +19,7 @@ const LoginHeader = () => {
             }}
           >
             <button
-              className="relative hover:opacity-90 group/btn justify-center flex space-x-2 items-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-950 dark:bg-zinc-100 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
               type="submit"
             >
               <img src="/google.png" alt="Icon" className="h-6 w-6" />
@@ -30,13 +30,13 @@ const LoginHeader = () => {
           </form>
 
           <form
-            action={async () => {
+            /*action={async () => {
               "use server";
               await signIn("apple");
-            }}
+            }}*/
           >
             <button
-              className="relative hover:opacity-90 group/btn justify-center flex space-x-2 items-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-950 dark:bg-zinc-100 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
               type="submit"
             >
               <img

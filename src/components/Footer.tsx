@@ -6,8 +6,8 @@ import { buttonVariants } from "./ui/button";
 import { usePathname } from "next/navigation";
 
 const links = [
-    { name: "Business Contact", href: "/dashboard/contact", icon: Mail},
-    { name: "Feedback", href: "/dashboard/feedback", icon:MessageSquareWarning  },
+    { name: "Business Contact", href: "/contact", icon: Mail},
+    { name: "Feedback", href: "/feedback", icon:MessageSquareWarning  },
     { name: "Help", href: "/help", icon: FileQuestion},
    ];
    const footerLinks = [
@@ -50,13 +50,13 @@ function Footer() {
       {footerLinks.map((link) => <Link
           key={link.name}
           href={link.href}
-          className="text-xs  text-gray-300 inline text-nowrap space-x-1 items-center"
+          className="text-sm  dark:text-neutral-300 text-neutral-600 inline text-nowrap space-x-1 items-center "
         >
-          <span className=" hover:underline">{ link.name}</span>
+          <span className=" hover:underline ">{ link.name}</span>
           <br/>
         </Link>)}
         <hr className="my-4" />
-        <p className="text-gray-400 text-xs">Copyright © 2024 Gamerzone®. All rights reserved. 
+        <p className="dark:text-neutral-300 text-neutral-600 text-sm">Copyright © 2024 Gamerzone®. All rights reserved. 
         </p>
       
 
