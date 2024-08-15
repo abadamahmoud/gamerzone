@@ -1,36 +1,76 @@
 "use client";
 
-// import { calSans } from "@/app/fonts";
-import { signIn } from "next-auth/react";
-import { useFormStatus } from "react-dom";
-import { Button } from "./ui/button";
-import { calSans } from "@/app/fonts";
+import { useState } from "react";
+import { login } from "@/action/user";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function LoginForm() {
+const LoginForm = () => {
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null); // Reset error state
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const result = await login(formData);
+
+      if (result?.error) {
+        // Handle specific error cases
+        setError(result.error);
+      } else {
+       router.push("/"); // Redirect on success
+      }
+    } catch (error) {
+      setError("An unexpected error occurred.Please try again.");
+    }
+  };
+
   return (
-    <div className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${calSans.className} mb-3 text-2xl dark:text-black`}>
-          Please log in to continue.
-        </h1>
+    <form className="px-8 h-full w-full" onSubmit={handleSubmit}>
+      <Label htmlFor="email" className="text-md dark:text-gray-400 text-gray-600">
+        Email Address
+      </Label>
+      <Input
+        id="email"
+        placeholder="johndoe@gmail.com"
+        type="email"
+        name="email"
+        className="my-2 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
+      />
 
-        <LoginButton />
-      </div>
-    </div>
+      <Label htmlFor="password" className="text-md dark:text-gray-400 text-gray-600">
+        Password
+      </Label>
+      <Input
+        id="password"
+        placeholder="********"
+        type="password"
+        name="password"
+        className="my-2 mb-6 focus:outline-none focus:border-transparent focus:ring-0 focus:shadow-none"
+      />
+
+      <button
+        className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+        type="submit"
+      >
+        Login &rarr;
+      </button>
+
+      {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
+      <p className="text-sm mt-2 text-gray-600 text-center">
+        Don't have an account? <Link href="/register" className="text-blue-500 hover:text-blue-800 font-bold">Register Here</Link>
+      </p>
+
+      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+    </form>
   );
-}
+};
 
-function LoginButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      className="mt-4 w-full"
-      variant={"secondary"}
-      aria-disabled={pending}
-      onClick={() => signIn("google", { callbackUrl: "/" })}
-    >
-      Log in with Google
-    </Button>
-  );
-}
+export default LoginForm;

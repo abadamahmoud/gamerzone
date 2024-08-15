@@ -13,26 +13,28 @@ const login = async (formData: FormData) => {
   const password = formData.get("password") as string;
 
   try {
+    // Validate form data
+    if (!email || !password) {
+      throw new Error("Please fill in all required fields.");
+    }
+
+    // Attempt to sign in
     const result = await signIn("credentials", {
       redirect: false,
       callbackUrl: "/",
       email,
       password,
     });
-
-    if (!result?.ok) {
-      throw new Error(result?.error || "Failed to sign in");
+    if (result.error) {
+      console.log(";;;;;;;;;;;;;;;;;;;;;;",result.error);
+      throw new Error("Invalid email or password.");
     }
 
-    redirect("/");
-
-  } catch (error) {
-    const someError = error as CredentialsSignin;
-    return { error: someError.message };
+  } catch (error: any) {
+    // Return the error to be handled in the component
+    return { error:  error?.cause?.err?.message || error.message ||  "An unexpected error occurred. Please try again." };
   }
 };
-
-
 const register = async (formData: FormData) => {
   try {
     const name= formData.get("name")?.toString().trim();
@@ -69,9 +71,7 @@ const register = async (formData: FormData) => {
     await prisma.user.create({
       data: { username, name, email, password: hashedPassword },
     });
-
-    console.log("User created successfully");
-
+    // return { success: true };
 
   } catch (error: any) {
     // Return the error to be handled in the component

@@ -41,7 +41,6 @@ export async function DELETE(req: Request, { params }: { params: { channelId: st
         messages: true,
       },
     });
-    
 
     if (!channel) {
       return NextResponse.json({ error: 'Channel not found' }, { status: 404 });
@@ -51,7 +50,7 @@ export async function DELETE(req: Request, { params }: { params: { channelId: st
       if (channel.creatorId !== session?.user?.id) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
-  
+
       // Remove the channel reference from the server
       if (channel.server) {
         await prisma.server.update({
@@ -63,14 +62,14 @@ export async function DELETE(req: Request, { params }: { params: { channelId: st
           },
         });
       }
-  
+
       // Remove the channel reference from users
       const usersWithChannel = await prisma.user.findMany({
         where: {
           channelIds: { has: channelId },
         },
       });
-  
+
       for (const user of usersWithChannel) {
         await prisma.user.update({
           where: { id: user.id },
@@ -78,46 +77,42 @@ export async function DELETE(req: Request, { params }: { params: { channelId: st
             channelIds: {
               set: user.channelIds.filter(id => id !== channelId),
             },
-            sentMessages: {
-              disconnect: channel.messages.map(message => ({ id: message.id })),
-            },
           },
         });
       }
-  
+
       // Delete all messages within the channel
       await prisma.message.deleteMany({
         where: { channelId: channelId },
       });
-  
-      // Delete the channel
+
+      // Finally, delete the channel
       await prisma.channel.delete({
         where: { id: channelId },
       });
 
-    } else {
+    } else { // Handle DM channels
       const data = await req.json();
       const { senderId } = data;
+
       const sender = await prisma.user.findUnique({
-        where: { id: senderId }});
-        
+        where: { id: senderId },
+      });
+
       const updatedChannelIds = sender?.channelIds.filter(id => id !== channelId);
       await prisma.user.update({
         where: { id: senderId },
         data: { channelIds: updatedChannelIds },
       });
-      const channel = await prisma.channel.findUnique({
-        where: { id: channelId },
-      });
-      if (!channel?.membersIds.includes(senderId)) throw new Error(`Channel alredy deleted for this user`)
+
+      if (!channel?.membersIds.includes(senderId)) throw new Error(`Channel already deleted for this user`);
+
       const updatedMembersIds = channel?.membersIds.filter(id => id !== senderId);
       await prisma.channel.update({
         where: { id: channelId },
         data: { membersIds: updatedMembersIds },
       });
     }
-
-    
 
     return NextResponse.json({ message: 'Channel deleted successfully' });
   } catch (error) {

@@ -86,7 +86,7 @@ const MessagesLayout = () => {
     <div className='flex pt-16 px-2 flex-col items-start gap-2 w-1/4 min-w-72 lg:w-1/4 h-full'>
       
 
-      <Select value={selectedServer} onValueChange={setSelectedServer}>
+      {servers.length > 0 && <Select value={selectedServer} onValueChange={setSelectedServer}>
         <SelectTrigger className="w-full text-lg hover:dark:bg-neutral-800 hover:bg-neutral-100 h-12">
           <SelectValue placeholder={<div className='flex gap-2 items-center'>
             {servers[0] && (
@@ -107,7 +107,7 @@ const MessagesLayout = () => {
             </SelectItem>
           )) }
         </SelectContent>
-      </Select>
+      </Select>}
       <Link href="/chatservers/newserver" className='w-full'>
         <Button variant={'outline'} className='w-full h-12 mt-1 text-lg'>
           <Plus className='mr-1' /> New Chat Server

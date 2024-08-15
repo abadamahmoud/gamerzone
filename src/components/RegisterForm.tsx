@@ -20,7 +20,7 @@ const RegisterForm = () => {
     
     try {
       const result = await register(formData);
-      console.log(result);
+
 
       if (result?.error) {
 

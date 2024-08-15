@@ -23,11 +23,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
 
       authorize: async (credentials) => {
-        const email = credentials.email as string | undefined;
+        try {
+          const email = credentials.email as string | undefined;
         const password = credentials.password as string | undefined;
 
         if (!email || !password) {
-          throw new CredentialsSignin("Please provide both email & password");
+          throw new Error("Please provide both email & password");
         }
 
         const user = await prisma.user.findUnique({
@@ -54,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const isMatched = await compare(password, user.password);
 
         if (!isMatched) {
-          throw new Error("Password did not matched");
+          throw new Error("Invalid email or password");
         }
 
         const userData = {
@@ -67,6 +68,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
 
         return userData;
+           // Successful authorization
+        } catch (error: any) {
+          // Handle different types of errors
+          console.error("[auth][error] Authorization failed:", error.message);
+          throw new Error("Invalid email or password");
+        }
+        
       },
     }),
   ],
