@@ -103,31 +103,31 @@ function MoreDropdown() {
               <p>Settings</p>
             </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
-           <Link href={"/contact"}>
+           <Link href={"/contact"} rel="noopener noreferrer" target="_blank" >
             <DropdownMenuItem className="menuItem">
                 <Mail size={20} />
                 <p>Business Contact</p>
               </DropdownMenuItem> 
             </Link>
-           <Link href={"/feedback"}>
+           <Link href={"/feedback"} rel="noopener noreferrer" target="_blank" >
             <DropdownMenuItem className="menuItem">
                 <MessageSquareWarning size={20} />
                 <p>Feedback</p>
               </DropdownMenuItem> 
             </Link>
-           <Link href={"/help"}>
+           <Link href={"/help"} rel="noopener noreferrer" target="_blank" >
               <DropdownMenuItem className="menuItem">
                 <FileQuestion size={20} />
                 <p>Help</p>
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <Link href={"/legal/terms"}>
+            <Link href={"/legal/terms"} rel="noopener noreferrer" target="_blank" >
               <DropdownMenuItem className="menuItem">
                 <p>Terms of Use</p>
               </DropdownMenuItem>
             </Link>
-           <Link href={"/legal/privacy"}>
+           <Link href={"/legal/privacy"} rel="noopener noreferrer" target="_blank" >
             <DropdownMenuItem className="menuItem">
                 <p>Privacy Policy</p>
               </DropdownMenuItem>

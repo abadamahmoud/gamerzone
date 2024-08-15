@@ -29,6 +29,7 @@ function Footer() {
             <Link
             key={link.name}
             href={link.href}
+            rel="noopener noreferrer" target="_blank"
             className={buttonVariants({
               variant: isActive ? "secondary" : "ghost",
               className: cn("navLink", { /*"hidden md:flex": link.hideOnMobile */}),
@@ -50,6 +51,7 @@ function Footer() {
       {footerLinks.map((link) => <Link
           key={link.name}
           href={link.href}
+          rel="noopener noreferrer" target="_blank"
           className="text-sm  dark:text-neutral-300 text-neutral-600 inline text-nowrap space-x-1 items-center "
         >
           <span className=" hover:underline ">{ link.name}</span>

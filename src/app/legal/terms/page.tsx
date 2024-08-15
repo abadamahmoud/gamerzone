@@ -25,10 +25,10 @@ const TermsOfUse = () => {
           We are committed to providing you with the Gamerzone Service, which includes all features, applications, services, technologies, and software we offer to enhance your gaming and social experience. The Service includes:</p>
           <ul className="list-disc list-inside pl-6">
             <li><strong>Personalized Experience:</strong> Offering various features to create, connect, communicate, discover, and share gaming content. We tailor your experience based on your interests and activities to help you connect with others who share your passion for gaming.</li>
-            <li><strong>Safe and Inclusive Environment:</strong> We use tools and resources to ensure a positive and inclusive experience. Our team works to combat abuse and violations of our Terms, maintaining a safe environment. We may share information with other Meta Companies or law enforcement if necessary.</li>
+            <li><strong>Safe and Inclusive Environment:</strong> We use tools and resources to ensure a positive and inclusive experience. Our team works to combat abuse and violations of our Terms, maintaining a safe environment. We may share information with other Gamerzone Companies or law enforcement if necessary.</li>
             <li><strong>Advanced Technologies:</strong> Utilizing technologies like artificial intelligence and machine learning to personalize, protect, and improve our Service. We continuously develop technologies to better serve our global gaming community.</li>
-            <li><strong>Global Data Infrastructure:</strong>Storing and transferring data globally to operate our Service efficiently. This infrastructure may be managed by Gamerzone or its affiliates.</li>
-            <li><strong>Relevant Advertising</strong> Using data from Gamerzone and Meta Products to show you ads and sponsored content relevant to your interests, without selling your personal data. Advertisers provide us with goals, and we match ads to likely interested users.</li>
+            <li><strong>Global Data Infrastructure:</strong> Storing and transferring data globally to operate our Service efficiently. This infrastructure may be managed by Gamerzone or its affiliates.</li>
+            <li><strong>Relevant Advertising</strong> Using data from Gamerzone Products to show you ads and sponsored content relevant to your interests, without selling your personal data. Advertisers provide us with goals, and we match ads to likely interested users.</li>
             <li><strong>Research and Innovation:</strong> Using collected information to improve our Service and contribute to the gaming community’s well-being through research and innovation</li>
           </ul>
           
@@ -82,9 +82,8 @@ const TermsOfUse = () => {
           <ul className="list-disc list-inside pl-6">
           <li><strong>Eligibility:</strong> You must be at least 13 years old or the legal age in your country to use Gamerzone. You must not be prohibited by law or previously banned from our Service.</li>
             <li><strong>Account Creation:</strong> You must provide accurate, current, and complete information when registering an account. You are responsible for safeguarding your account credentials and for all activities that occur under your account.</li>
-            <li><strong>Content:</strong> You are solely responsible for the content you post or share on Gamerzone. You agree not to post or transmit any content that is illegal, defamatory, harmful, harassing, obscene, or otherwise objectionable. <br />
-            Ensure you have rights to any content you post. Do not post others' private information or infringe on intellectual property rights.</li>
-            <li><strong>Prohibited Activities:</strong> You agree not to engage in any disruptive activities that interfere with the operation of the Service. This includes, but is not limited to: spamming, hacking, harassment, unauthorized access to other users' accounts, unauthorized collection or use of data,unlawful or fraudulent activities, and exploitation of bugs or vulnerabilities.</li>
+            <li><strong>Content:</strong> You are solely responsible for the content you post or share on Gamerzone. You agree not to post or transmit any content that is illegal, defamatory, harmful, harassing, obscene, or otherwise objectionable. Ensure you have rights to any content you post. Do not post others' private information or infringe on intellectual property rights.</li>
+            <li><strong>Prohibited Activities:</strong> You agree not to engage in any disruptive activities that interfere with the operation of the Service. This includes, but is not limited to: spamming, hacking, harassment, unauthorized access to other users' accounts, unauthorized collection or use of data, unlawful or fraudulent activities, and exploitation of bugs or vulnerabilities.</li>
             <li><strong>Privacy:</strong> Respect the privacy of other users. Do not collect or store personal data without authorization. Adhere to all applicable data protection laws and regulations.</li>
           </ul>
         </section>
@@ -130,7 +129,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">12. Our Agreement and Dispute Resolution</h2>
           <ul className="list-disc list-inside pl-6">
-            <li><strong>Governing Lawl:</strong> Claims related to these Terms will be governed by the laws of your country. For other cases, disputes must be resolved in the courts of California, USA.</li>
+            <li><strong>Governing Law:</strong> Claims related to these Terms will be governed by the laws of your country. For other cases, disputes must be resolved in the courts of California, USA.</li>
             <li><strong>Dispute Handling:</strong>Gamerzone LLC. may also address claims related to abuse or interference with our products in your residing country.</li>
           </ul>
         </section>
@@ -162,7 +161,7 @@ const TermsOfUse = () => {
         <section>
           <h2 className="text-2xl font-semibold mb-4">16. Contact Us</h2>
           <p>
-            If you have any questions or concerns about these Terms of Use, please contact us at <a href= "mailto: contact@gamerzone.com" className='underline'> contact@gamerzone.com </a>. We are here to assist you and address any issues you may have.
+            If you have any questions or concerns about these Terms of Use, please contact us at <a href= "mailto: terms@gamerzone.com" className='underline'> terms@gamerzone.com</a>. We are here to assist you and address any issues you may have.
           </p>
         </section>
       <hr className='mt-5 h-2 rounded-full dark:bg-neutral-100 bg-neutral-900'/>
