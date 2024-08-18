@@ -24,7 +24,7 @@ const ArticleCard: React.FC<ArticleProps> = ({ article }) => {
   return (
     <Link 
       className="flex z-auto  flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md" 
-      href={{ pathname: `/articles/${article.slug}`, query: { link: article.link } }}
+      href={{ pathname: `/articles/${article.slug}`, query: { link: article.link, title: article.title } }}
     >
       <Image
         src={article.thumbnail}

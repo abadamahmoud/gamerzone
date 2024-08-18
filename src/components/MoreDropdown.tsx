@@ -1,7 +1,7 @@
 "use client";
 import { signOut } from "next-auth/react"
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
@@ -28,8 +28,11 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
+import ProfileLink from "./ProfileLink";
 
 function MoreDropdown() {
+  const {user} = useUser();
   const [showModeToggle, setShowModeToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -76,15 +79,36 @@ function MoreDropdown() {
       >
         {!showModeToggle && (
           <>
-            <DropdownMenuItem className="menuItem">
-              <User size={20} />
-              <p>Profile</p>
+          {user? <>
+          <Link href={`/${user.username}`}>
+          <DropdownMenuItem className="dark:hover:bg-[#3C3C3C] !cursor-pointer flex items-center gap-x-2 !py-1.5 !m-1.5 !mt-3 !rounded-lg font-medium">
+          <ProfileLink user={user} />
+            {user.name}
             </DropdownMenuItem>
+          </Link>
             <DropdownMenuItem className="menuItem" onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
               
               <LogOut size={20} />
               <p>Log out</p>
             </DropdownMenuItem>
+            </> : <>
+            <Link href={"/login"}>
+            <DropdownMenuItem >
+            <Button  variant={"ghost"} className="flex w-full mt-2 py-3 dark:hover:bg-neutral-700 h-full hover:bg-neutral-200 space-x-2">
+            
+            Login
+          </Button>
+              </DropdownMenuItem>
+            </Link> 
+            <Link href={"/register"}>
+            <DropdownMenuItem>
+            <Button  variant={"default"} className="flex w-full selection:h-full  space-x-2">
+              
+              Register
+            </Button>
+              </DropdownMenuItem>
+            </Link> </>}
+            
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="menuItem"

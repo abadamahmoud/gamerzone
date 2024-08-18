@@ -122,7 +122,7 @@ const ChannelPage = () => {
 
   return (
     <div className="flex px-1 flex-col h-full w-full">
-      {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} 
+      {channel && <TopBar onDiscussionDelete={null} channel={channel} onChannelDelete={onChannelDelete} 
       onChannelLeave={onChannelLeave} />}
       <MessageBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />

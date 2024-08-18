@@ -2,20 +2,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import debounce from 'lodash/debounce';
+//import throttle from 'lodash/throttle';
 
-const apiKey = process.env.SMMRY_API_KEY! as string || "DEECD9747F";
-const SMMRY_API_URL = "https://api.smmry.com";
+
+
+
+
 
 const ArticlePage = () => {
   const [summary, setSummary] = useState<string | null>(null);
-  const [title, setTitle] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reduction, setReduction] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const link = searchParams.get("link");
+  const title = searchParams.get("title");
 
-  const handleSummarize = async (link: string) => {
+  /*const handleSummarize = async (link: string) => {
     try {
       setLoading(true);
       setError(null);
@@ -49,7 +53,38 @@ const ArticlePage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
+
+  
+  const handleSummarize = debounce(async (link: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      if (!link) {
+        throw new Error('No URL provided for summarization.');
+      }
+
+      // Make a request to the API route
+      const response = await axios.post('/api/summarize', { link });
+
+      const { summary, reductionPercentage } = response.data;
+      setSummary(summary || 'No summary available');
+      setReduction(reductionPercentage? reductionPercentage : 0);
+
+    } catch (error: any) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+      setError(error.response ? error.response.data.error : error.message || 'Failed to summarize article.');
+    } finally {
+      setLoading(false);
+    }
+  },500);
+
+
+
+
+
+
 
   useEffect(() => {
     if (link) {
@@ -82,7 +117,7 @@ const ArticlePage = () => {
             <>
               <p className="text-lg px-6 my-2">{summary}</p>
               <hr />
-              <p className="mt-2">Content reduced by: {reduction}</p>
+              <p className="mt-2">Content reduced by: {reduction}%</p>
             </>
           )}
           {error && <p className="text-red-500 capitalize text-lg mt-2">Error: {error.toLocaleLowerCase()}</p>}

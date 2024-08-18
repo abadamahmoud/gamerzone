@@ -16,7 +16,7 @@ const Navbar =  () => {
           <>
             <li>
               <Link href="/login" >
-              <Button  variant={"ghost"} className="flex space-x-2">
+              <Button  variant={"ghost"} className="flex px-6 space-x-2">
             
                 Login
               </Button>
@@ -36,10 +36,13 @@ const Navbar =  () => {
             <li>
              <ProfileLink user={user}/>
             </li>
+            <li>
+
             
               <Button variant={"ghost"} onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
                 Logout
               </Button>
+            </li>
           
           
           </>

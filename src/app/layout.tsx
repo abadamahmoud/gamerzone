@@ -7,6 +7,7 @@ import SideNav from "@/components/SideNav";
 import Header from "@/components/Header";
 import { UserProvider } from "@/context/UserContext";
 import { SessionProvider } from "next-auth/react";
+import { BannerProvider } from "@/context/BannerContext";
 
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({
           <AuthProvider>
             <SessionProvider>
               <UserProvider>
+              <BannerProvider>
                 <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
                   <SideNav />
                   <div className="flex-1 flex flex-col md:overflow-y-auto">
@@ -40,6 +42,7 @@ export default function RootLayout({
                     <main className="flex-1 overflow-y-auto">{children}</main>
                   </div>
                 </div>
+                </BannerProvider>
               </UserProvider>
             </SessionProvider>
           </AuthProvider>
