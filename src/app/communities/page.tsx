@@ -17,7 +17,7 @@ const CommunitiesPage = () => {
         </h1>
 
         <p className="text-lg mb-6">
-        Join the squads! Our Communities page is on the way, where you'll soon connect and engage with fellow gamers. Hang tight—exciting new interactions are just around the corner!
+        Join the squads! Our Communities page is on the way, where you&apos;ll soon connect and engage with fellow gamers. Hang tight—exciting new interactions are just around the corner!
         </p>
 
         {/* Button to Go Back */}

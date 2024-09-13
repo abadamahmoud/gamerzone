@@ -58,7 +58,7 @@ const HomePage = () => {
   // Fetch articles when the page number changes
   useEffect(() => {
     fetchArticles();
-  }, [page]);
+  }, [page, fetchArticles]);
 
   useEffect(() => {
     if (!observerRef.current) {

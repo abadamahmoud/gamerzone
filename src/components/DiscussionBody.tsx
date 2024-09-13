@@ -1,5 +1,6 @@
 import { useUser } from '@/context/UserContext';
 import { Message } from '@/types';
+import Image from 'next/image';
 import { FC } from 'react';
 
 interface DiscussionBodyProps {
@@ -22,7 +23,7 @@ const DiscussionBody: FC<DiscussionBodyProps> = ({ messages }) => {
           }`}
         >
           {!isSameSenderAsPrevious && user?.id !== message.senderId &&(
-            <img
+            <Image
               src={message.sender.image as string}
               alt={message.sender.name as string}
               className="w-10 h-10 rounded-full"

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 import { io } from 'socket.io-client';
+import Image from 'next/image';
 
 const socket = io('http://localhost:4000');
 
@@ -113,7 +114,7 @@ const CreateChannelForm = () => {
               styles={customStyles}
               formatOptionLabel={(option: any) => (
                 <div className="flex items-center">
-                  <img
+                  <Image 
                     src={option.image}
                     alt={option.label}
                     className="w-6 h-6 rounded-full mr-2"

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/ui/carousel';
+import Image from 'next/image';
 
 const Dms = () => {
   const { user, loading } = useUser();
@@ -29,7 +30,7 @@ const Dms = () => {
       };
       fetchChannels();
     }
-  }, [user]);
+  }, [user, router]);
 
   // display channels in scroll area , each channel is a link
   return (
@@ -51,7 +52,7 @@ const Dms = () => {
               href={`/dms/${channel.id}`}
               className="w-full p-2 justify-start flex gap-2  items-center text-lg h-fit hover:dark:bg-neutral-800 hover:bg-neutral-100"
             >
-              <img src={channel.image} className='h-8 w-8 rounded-full object-cover'/>
+              <Image alt={channel.name} src={channel.image} className='h-8 w-8 rounded-full object-cover'/>
               <p className='inline text-nowrap'>{channel.name}</p>
                
             </Link>
@@ -68,7 +69,7 @@ const Dms = () => {
               key={channel.id}
               href={`/dms/${channel.id}`}
             >
-              <img src={channel.image} className='h-12 w-12  rounded-full object-cover'/>
+              <Image alt={channel.name} src={channel.image} className='h-12 w-12  rounded-full object-cover'/>
 
                
             </Link>

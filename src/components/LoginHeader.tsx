@@ -1,5 +1,6 @@
 import { signIn } from "@/auth";
 import { chakraPetch } from "../app/fonts";
+import Image from "next/image";
 
 const LoginHeader = () => {
   return (
@@ -22,7 +23,7 @@ const LoginHeader = () => {
               className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
               type="submit"
             >
-              <img src="/google.png" alt="Icon" className="h-6 w-6" />
+              <Image src="/google.png" alt="Icon" className="h-6 w-6" />
               <span className="text-neutral-100 dark:text-neutral-900 text-md">
                 Continue with Google
               </span>
@@ -39,12 +40,12 @@ const LoginHeader = () => {
               className="relative mt-2 hover:opacity-90 group flex justify-center items-center space-x-2 px-6 py-2 rounded-lg h-12 font-semibold shadow-lg bg-gradient-to-br from-black to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 w-full text-white dark:text-neutral-950 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
               type="submit"
             >
-              <img
+              <Image
                 src="/apple_white.png"
                 alt="Icon"
                 className="h-6 w-6 dark:hidden flex"
               />
-              <img
+              <Image
                 src="/apple_dark.png"
                 alt="Icon"
                 className="h-6 w-6 dark:flex hidden"

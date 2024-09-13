@@ -10,12 +10,12 @@ import { usePathname } from "next/navigation";
 import { useBannerContext } from '@/context/BannerContext';
 
 function Header() {
+  const { isBannerVisible, closeBanner } = useBannerContext();
   const pathname = usePathname();
   if (pathname === "/login" || pathname === "/register" || pathname === "/contact" || pathname === "/help" || pathname === "/feedback" || pathname === "/communities" || pathname === "/legal/terms" || pathname === "/legal/privacy") return;
 
   
 
-  const { isBannerVisible, closeBanner } = useBannerContext();
   return (
     <div className='fixed right-0 top-0 w-full z-[1000]'>
    

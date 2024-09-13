@@ -52,7 +52,7 @@ const CreateServerForm = () => {
         socket.disconnect();
       }
     };
-  }, []); 
+  }, [socket]); 
 
   useEffect(() => {
     const abortController = new AbortController(); // Create an AbortController instance
