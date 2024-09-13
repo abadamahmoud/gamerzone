@@ -82,8 +82,8 @@ const TermsOfUse = () => {
           <ul className="list-disc list-inside pl-6">
           <li><strong>Eligibility:</strong> You must be at least 13 years old or the legal age in your country to use Gamerzone. You must not be prohibited by law or previously banned from our Service.</li>
             <li><strong>Account Creation:</strong> You must provide accurate, current, and complete information when registering an account. You are responsible for safeguarding your account credentials and for all activities that occur under your account.</li>
-            <li><strong>Content:</strong> You are solely responsible for the content you post or share on Gamerzone. You agree not to post or transmit any content that is illegal, defamatory, harmful, harassing, obscene, or otherwise objectionable. Ensure you have rights to any content you post. Do not post others' private information or infringe on intellectual property rights.</li>
-            <li><strong>Prohibited Activities:</strong> You agree not to engage in any disruptive activities that interfere with the operation of the Service. This includes, but is not limited to: spamming, hacking, harassment, unauthorized access to other users' accounts, unauthorized collection or use of data, unlawful or fraudulent activities, and exploitation of bugs or vulnerabilities.</li>
+            <li><strong>Content:</strong> You are solely responsible for the content you post or share on Gamerzone. You agree not to post or transmit any content that is illegal, defamatory, harmful, harassing, obscene, or otherwise objectionable. Ensure you have rights to any content you post. Do not post others&apos; private information or infringe on intellectual property rights.</li>
+            <li><strong>Prohibited Activities:</strong> You agree not to engage in any disruptive activities that interfere with the operation of the Service. This includes, but is not limited to: spamming, hacking, harassment, unauthorized access to other users&apos; accounts, unauthorized collection or use of data, unlawful or fraudulent activities, and exploitation of bugs or vulnerabilities.</li>
             <li><strong>Privacy:</strong> Respect the privacy of other users. Do not collect or store personal data without authorization. Adhere to all applicable data protection laws and regulations.</li>
           </ul>
         </section>
@@ -137,7 +137,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">13. Limitation of Liability</h2>
           <ul className="list-disc list-inside pl-6">
-            <li><strong>Disclaimer:</strong> The Service is provided on an "as is" and "as available" basis. We do not warrant that the Service will be uninterrupted, error-free, or secure. Your use of the Service is at your own risk.</li>
+            <li><strong>Disclaimer:</strong> The Service is provided on an &quot;as is&quot; and &quot;as available&quot; basis. We do not warrant that the Service will be uninterrupted, error-free, or secure. Your use of the Service is at your own risk.</li>
             <li><strong>Limitation:</strong> To the fullest extent permitted by law, Gamerzone and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from or related to your use of the Service, even if we have been advised of the possibility of such damages.</li>
             <li><strong>Indemnification:</strong> You agree to indemnify and hold harmless Gamerzone and its affiliates from any claims, liabilities, damages, losses, or expenses arising out of your use of the Service or any violation of these Terms.</li>
           </ul>

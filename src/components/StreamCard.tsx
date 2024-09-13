@@ -52,21 +52,10 @@ const StreamCard: React.FC<CardProps> =  ({ stream }) => {
 
     setTimeRunning(timeString.trim()); // Remove any trailing spaces
   }, [stream.started_at]);
-
-
-
-
-
+  
   if  (stream.type !== "live") return;
- 
-
- 
   return (
     <Link className="flex flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md" href={{ pathname: `/streams/${stream.user_login}`,/*query: { link: item.user_login}*/ }}>
-       
-      
-
-
     <Image
       src={stream.thumbnail_url.replace("-{width}x{height}", "")}
       alt={stream.title}
@@ -74,10 +63,6 @@ const StreamCard: React.FC<CardProps> =  ({ stream }) => {
       height={150}
       className="h-full w-full object-cover"
     />
-  
-  
-
-      
       <div className='flex-col  gap-2 p-2 flex '>
       <h2 className="text-lg ml-1 font-semibold">
        {stream.title}
