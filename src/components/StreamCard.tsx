@@ -14,13 +14,7 @@ interface CardProps {
 
 
 const StreamCard: React.FC<CardProps> =  ({ stream }) => {
-
-
-
-
-  if  (stream.type !== "live") return;
   const [timeRunning, setTimeRunning] = useState('');
-
   useEffect(() => {
     const startDate = new Date(stream.started_at);
     const now = new Date();
@@ -59,6 +53,14 @@ const StreamCard: React.FC<CardProps> =  ({ stream }) => {
     setTimeRunning(timeString.trim()); // Remove any trailing spaces
   }, [stream.started_at]);
 
+
+
+
+
+  if  (stream.type !== "live") return;
+ 
+
+ 
   return (
     <Link className="flex flex-col min-w-[380px] w-full flex-1 md:max-w-[800px] h-[400px] border rounded shadow-md" href={{ pathname: `/streams/${stream.user_login}`,/*query: { link: item.user_login}*/ }}>
        

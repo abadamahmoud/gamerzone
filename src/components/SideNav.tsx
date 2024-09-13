@@ -7,11 +7,11 @@ import Footer from "./Footer";
 import { usePathname } from "next/navigation";
 
 const SideNav = () => {
+  const { isBannerVisible } = useBannerContext();
+  const marginClass = isBannerVisible ? 'md:pt-32' : 'md:pt-20';
   const pathname = usePathname();
   if (pathname === "/login" || pathname === "/register" || pathname === "/contact" || pathname === "/help" || pathname === "/feedback" || pathname === "/communities" || pathname === "/legal/terms" || pathname === "/legal/privacy") return;
 
-  const { isBannerVisible } = useBannerContext();
-  const marginClass = isBannerVisible ? 'md:pt-32' : 'md:pt-20';
 
   return (
     <nav className="flex fixed bottom-0 z-[500] !bg-white dark:!bg-neutral-950 w-full md:relative md:w-auto md:h-full flex-col lg:w-52 md:border-r px-3 py-4 md:px-2">

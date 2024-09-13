@@ -22,12 +22,12 @@ function Footer() {
 
     <div className="lg:block hidden">
       <hr className="mb-4"/>
-      {links.map(link => {
+      {links.map((link, index) => {
         const LinkIcon = link.icon;
         const isActive = pathname === link.href;
           return (
             <Link
-            key={link.name}
+            key={index}
             href={link.href}
             rel="noopener noreferrer" target="_blank"
             className={buttonVariants({
@@ -48,8 +48,8 @@ function Footer() {
         );
       })}
       <hr className="mt-4 mb-4" />
-      {footerLinks.map((link) => <Link
-          key={link.name}
+      {footerLinks.map((link, index) => <Link
+          key={index}
           href={link.href}
           rel="noopener noreferrer" target="_blank"
           className="text-sm  dark:text-neutral-300 text-neutral-600 inline text-nowrap space-x-1 items-center "
