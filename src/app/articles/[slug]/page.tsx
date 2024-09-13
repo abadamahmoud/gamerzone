@@ -93,7 +93,7 @@ const ArticlePage = () => {
       setError("No URL provided in the query parameters.");
       setLoading(false); 
     }
-  }, [link]);
+  }, [link, handleSummarize]);
 
   return (
     <div className="container mb-20 min-h-[80%] h-auto md:mb-0 mt-16 mx-auto max-w-xl lg:max-w-3xl">

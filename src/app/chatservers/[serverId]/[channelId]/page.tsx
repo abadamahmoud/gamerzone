@@ -61,7 +61,7 @@ const ChannelPage = () => {
 
     };
     
-  }, [socket, channelId]);
+  }, [socket, channelId, router]);
 
   const handleSendMessage = async (messageContent: string) => {
     try {
@@ -122,7 +122,7 @@ const ChannelPage = () => {
 
   return (
     <div className="flex pt-16  px-3 flex-col h-full w-full">
-      {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} 
+      {channel && <TopBar channel={channel} onChannelDelete={onChannelDelete} onDiscussionDelete={null} 
       onChannelLeave={onChannelLeave} />}
       <MessageBody messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />

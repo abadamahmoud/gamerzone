@@ -50,7 +50,7 @@ const ServerPage = () => {
         socket.emit('leaveServer', serverId);
         socket.off('serverDeleted');
       };
-    }, [socket, serverId]); 
+    }, [socket, serverId, router]); 
     
   
 

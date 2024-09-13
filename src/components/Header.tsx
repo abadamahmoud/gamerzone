@@ -26,7 +26,7 @@ function Header() {
               🚧
             </span>
             <p className="font-semibold text-center">
-              We're Building Something Awesome! Our site is still under development—stay tuned for exciting updates and new features.
+              We&apos;re Building Something Awesome! Our site is still under development—stay tuned for exciting updates and new features.
             </p>
         
           <button
