@@ -15,7 +15,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Welcome to Gamerzone!</h2>
           <p>
-          These Terms of Use (or “Terms”) govern your use of Gamerzone and provide information about the Gamerzone Service (the “Service”), as outlined below. By creating a Gamerzone account or using our Service, you agree to these Terms. Please note that the Meta Terms of Service do not apply to this Service.
+          These Terms of Use (or &ldquo;Terms&ldquo;) govern your use of Gamerzone and provide information about the Gamerzone Service (the &ldquo;Service&ldquo;), as outlined below. By creating a Gamerzone account or using our Service, you agree to these Terms. Please note that the Meta Terms of Service do not apply to this Service.
           </p>
         </section>
 
@@ -29,7 +29,7 @@ const TermsOfUse = () => {
             <li><strong>Advanced Technologies:</strong> Utilizing technologies like artificial intelligence and machine learning to personalize, protect, and improve our Service. We continuously develop technologies to better serve our global gaming community.</li>
             <li><strong>Global Data Infrastructure:</strong> Storing and transferring data globally to operate our Service efficiently. This infrastructure may be managed by Gamerzone or its affiliates.</li>
             <li><strong>Relevant Advertising</strong> Using data from Gamerzone Products to show you ads and sponsored content relevant to your interests, without selling your personal data. Advertisers provide us with goals, and we match ads to likely interested users.</li>
-            <li><strong>Research and Innovation:</strong> Using collected information to improve our Service and contribute to the gaming community’s well-being through research and innovation</li>
+            <li><strong>Research and Innovation:</strong> Using collected information to improve our Service and contribute to the gaming community&apos;s well-being through research and innovation</li>
           </ul>
           
         </section>
@@ -44,7 +44,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">3. Live Streaming and Community Interaction</h2>
           <ul className="list-disc list-inside pl-6">
-            <li><strong>Streams:</strong> You may use Gamerzone to live stream or view streams from Twitch. You are responsible for adhering to Twitch’s terms of service and any applicable laws while using these features.</li>
+            <li><strong>Streams:</strong> You may use Gamerzone to live stream or view streams from Twitch. You are responsible for adhering to Twitch&apos;s terms of service and any applicable laws while using these features.</li>
             <li><strong>Communities:</strong> You may join and participate in various communities, servers, and groups on Gamerzone. Each community may have its own rules and guidelines, which you must follow. Respect the rules and guidelines set by community leaders.</li>
             <li><strong>Moderation:</strong> Gamerzone reserves the right to moderate and review content posted in communities and servers. We may take action to remove content or suspend accounts that violate our Terms or community guidelines.</li>
           </ul>

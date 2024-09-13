@@ -15,7 +15,7 @@ const PrivacyPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
           <p>
-          Welcome to Gamerzone! We are committed to safeguarding your privacy and ensuring that your personal information is handled with the utmost care and transparency. This Privacy Policy explains how Gamerzone LLC ("Gamerzone," "we," "us," or "our") collects, uses, shares, and protects the information of our users ("you" or "your") when you interact with our services. By using Gamerzone, you agree to the collection and use of information in accordance with this policy.
+          Welcome to Gamerzone! We are committed to safeguarding your privacy and ensuring that your personal information is handled with the utmost care and transparency. This Privacy Policy explains how Gamerzone LLC (&ldquo;Gamerzone,&ldquo; &ldquo;we,&ldquo; &ldquo;us,&ldquo; or &ldquo;our&ldquo;) collects, uses, shares, and protects the information of our users (&ldquo;you&ldquo; or &ldquo;your&ldquo;) when you interact with our services. By using Gamerzone, you agree to the collection and use of information in accordance with this policy.
           </p>
         </section>
 
@@ -34,7 +34,7 @@ const PrivacyPage = () => {
           <ul className="list-disc list-inside pl-6">
             <li><strong>Usage Data: </strong> We automatically collect data about your activity on Gamerzone, such as the features you use, the content you view and engage with, and the frequency and duration of your activities.</li>
             <li><strong>Device and Connection Data:</strong> We collect information about the devices you use to access Gamerzone, including your IP address, browser type, operating system, device identifiers, and mobile network information.</li>
-            <li><strong>Location Data:</strong>  With your consent, we collect location information through your device’s GPS, Wi-Fi, and other geolocation technologies. This helps us provide location-based services and content.</li>
+            <li><strong>Location Data:</strong>  With your consent, we collect location information through your device&apos; GPS, Wi-Fi, and other geolocation technologies. This helps us provide location-based services and content.</li>
             <li><strong>Payment Information: </strong>WIf you make in-app purchases or subscribe to premium features, we collect payment details, including billing information and transaction history.</li>
             <li><strong>Cookies and Tracking Technologies: </strong>We use cookies and similar technologies to collect information about your interaction with our Service, including your browsing behavior, preferences, and settings. You can manage your cookie preferences through your browser settings.</li>
           </ul>
@@ -102,7 +102,7 @@ const PrivacyPage = () => {
 
         
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">8. Children’s Privacy</h2>
+          <h2 className="text-2xl font-semibold mb-4">8. Children&apos;s Privacy</h2>
           <p>
           Gamerzone is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it promptly. If you believe that we have inadvertently collected information from a child under 13, please contact us immediately.
           </p>

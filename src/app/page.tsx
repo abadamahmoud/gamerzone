@@ -119,7 +119,7 @@ const HomePage = () => {
       )}
       <div ref={loadMoreRef} className="w-full h-16" />
       {/*!loading && articles.length === 0 && <h2>No articles found.</h2>*/}
-      {!loading && articles.length > 0 && <h2>That’s All For You Today :)</h2>}
+      {!loading && articles.length > 0 && <h2>That&apos;s All For You Today :)</h2>}
     </>
   );
 };

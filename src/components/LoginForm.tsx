@@ -65,7 +65,7 @@ const LoginForm = () => {
       {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
       <p className="text-sm mt-2 text-gray-600 text-center">
-        Don't have an account? <Link href="/register" className="text-blue-500 hover:text-blue-800 font-bold">Register Here</Link>
+        Don&apos;t have an account? <Link href="/register" className="text-blue-500 hover:text-blue-800 font-bold">Register Here</Link>
       </p>
 
       <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />

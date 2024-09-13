@@ -24,10 +24,3 @@ const RegisterPage = async () => {
   );
 };
 export default RegisterPage;
-
-
-
-
-
-
-

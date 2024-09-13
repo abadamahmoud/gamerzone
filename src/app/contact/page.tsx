@@ -17,7 +17,7 @@ const ContactPage = () => {
         </h1>
 
         <p className="text-lg mb-6">
-        We're crafting a better way for you to connect with us. Our Contact page will be live soon, bringing you a seamless way to reach out.
+        We&apos;re crafting a better way for you to connect with us. Our Contact page will be live soon, bringing you a seamless way to reach out.
           <br/>
           In the meantime, you can still get in touch with our developer via <a href= "mailto: mabadadev@gmail.com" className='underline  text-yellow-500'> email</a>. 
           </p>

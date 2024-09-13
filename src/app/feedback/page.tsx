@@ -17,7 +17,7 @@ const FeedbackPage = () => {
         </h1>
 
         <p className="text-lg mb-6">
-        We're listening! Our Feedback page will be live shortly, and we're eager to hear your thoughts. Stay tuned to share your ideas and help shape our platform.
+        We&apos;re listening! Our Feedback page will be live shortly, and we&apos;re eager to hear your thoughts. Stay tuned to share your ideas and help shape our platform.
         </p>
 
         {/* Button to Go Back */}
