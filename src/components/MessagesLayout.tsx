@@ -6,6 +6,7 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const MessagesLayout = () => {
   const { user, loading } = useUser();
@@ -49,7 +50,7 @@ const MessagesLayout = () => {
       };
       fetchChannels(selectedServer);
     }
-  }, [selectedServer]);
+  }, [selectedServer, router]);
 
   useEffect(() => {
     if (socket) {
@@ -91,7 +92,7 @@ const MessagesLayout = () => {
           <SelectValue placeholder={<div className='flex gap-2 items-center'>
             {servers[0] && (
               <>
-                <img src={servers[0].image} alt={servers[0].name} className='w-10 h-10 object-cover rounded-full' />
+                <Image src={servers[0].image} alt={servers[0].name} className='w-10 h-10 object-cover rounded-full' />
                 <span>{servers[0].name}</span>
               </>
             )}
@@ -101,7 +102,7 @@ const MessagesLayout = () => {
           {servers.length > 0 && servers.map(server => (
             <SelectItem key={server.id} value={server.id}>
               <div className='flex gap-2 text-lg items-center'>
-                <img src={server.image} alt={server.name} className='w-10 h-10 object-cover rounded-full' />
+                <Image src={server.image} alt={server.name} className='w-10 h-10 object-cover rounded-full' />
                 <span>{server.name}</span>
               </div>
             </SelectItem>

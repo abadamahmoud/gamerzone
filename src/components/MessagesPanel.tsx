@@ -8,6 +8,7 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import MessagesLayout from './MessagesLayout'
+import Image from 'next/image'
   
 
 function Channels() {
@@ -32,7 +33,7 @@ const [] = useState<string>('servers'); // Define state here
             <SelectTrigger className="w-full text-lg border-none hover:dark:bg-neutral-800 hover:bg-neutral-100 h-12">
                 <SelectValue placeholder={<div className='flex gap-2 items-center'>
 
-<img src={servers[0].image} alt={servers[0].name} className='w-10 h-10 object-cover rounded-full' />
+<Image src={servers[0].image} alt={servers[0].name} className='w-10 h-10 object-cover rounded-full' />
 <span className=''>{servers[0].name}</span>
 </div>} />   
             </SelectTrigger>
@@ -41,7 +42,7 @@ const [] = useState<string>('servers'); // Define state here
                 <SelectItem key={server.name} value={server.name}>
                     <div className='flex gap-2 text-lg items-center'>
 
-                    <img src={server.image} alt={server.name} className='w-10 h-10 object-cover rounded-full' />
+                    <Image src={server.image} alt={server.name} className='w-10 h-10 object-cover rounded-full' />
                     <span className=''>{server.name}</span>
                     </div>
                 </SelectItem>
@@ -49,8 +50,8 @@ const [] = useState<string>('servers'); // Define state here
             </SelectContent>
         </Select>
 
-        {channels.map(channel => 
-            <button className='w-full pl-6 text-start text-2xl hover:dark:bg-neutral-800 hover:bg-neutral-100' >
+        {channels.map((channel, index) => 
+            <button key={index} className='w-full pl-6 text-start text-2xl hover:dark:bg-neutral-800 hover:bg-neutral-100' >
                 #  { channel}
             </button>
         )}
