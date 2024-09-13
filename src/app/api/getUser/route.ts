@@ -2,9 +2,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic'; // Mark this route as dynamic
+
 export async function GET(req: NextRequest) {
   try {
-    const email =req.nextUrl.searchParams.get('email');
+    const { searchParams } = new URL(req.url); // Extract the query params from req.url
+    const email = searchParams.get('email');
     if (!email) {
       return NextResponse.json({ error: 'Missing email' }, { status: 400 });
     }

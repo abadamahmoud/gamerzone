@@ -62,6 +62,8 @@ const HomePage = () => {
   }, [page]);
 
   useEffect(() => {
+    const currentLoadMoreRef = loadMoreRef.current;
+  
     if (!observerRef.current) {
       observerRef.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && !loading) {
@@ -69,16 +71,18 @@ const HomePage = () => {
         }
       });
     }
-    if (loadMoreRef.current) {
-      observerRef.current.observe(loadMoreRef.current);
+  
+    if (currentLoadMoreRef) {
+      observerRef.current.observe(currentLoadMoreRef);
     }
-
+  
     return () => {
-      if (loadMoreRef.current && observerRef.current) {
-        observerRef.current.unobserve(loadMoreRef.current);
+      if (currentLoadMoreRef && observerRef.current) {
+        observerRef.current.unobserve(currentLoadMoreRef);
       }
     };
   }, [loading]);
+  
 
   // Number of skeletons to show based on screen size
   // Number of skeletons to show based on screen size

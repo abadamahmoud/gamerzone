@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic'; // Mark this route as dynamic
+
 // Handle GET requests to fetch channels
 export async function GET(req: NextRequest) {
   try {
     // Extract serverId and userId from query parameters
     const serverId = req.nextUrl.searchParams.get('serverId');
     const userId = req.nextUrl.searchParams.get('userId');
-
 
     if (serverId) {
       // Fetch channels for the given serverId
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
           type: 'server'
         }
       });
-      
+
       return NextResponse.json(channels, { status: 200 });
     } if (userId) {
       // Fetch direct message channels for the given userId
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest) {
           type: 'direct',
         },
       });
-  
+
       const channelsWithUserDetails = await Promise.all(
         channels.map(async (channel) => {
           // Find the other member in the channel
@@ -41,18 +42,18 @@ export async function GET(req: NextRequest) {
               id: otherMemberId,
             },
           });
-  
+
           return {
             ...channel,
             name: otherMember?.name || 'Unknown User',
-            image: otherMember?.image ,
+            image: otherMember?.image,
           };
         })
       );
-  
+
       return NextResponse.json(channelsWithUserDetails, { status: 200 });
     }
-   else {
+    else {
       return NextResponse.json({ error: 'Missing server or user ID' }, { 
         status: 400 });
     }
