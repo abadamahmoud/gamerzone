@@ -61,7 +61,7 @@ const ChannelPage = () => {
 
     };
     
-  }, [socket, channelId, router]);
+  }, [socket, channelId, serverId, router]);
 
   const handleSendMessage = async (messageContent: string) => {
     try {

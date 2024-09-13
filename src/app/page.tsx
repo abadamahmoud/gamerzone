@@ -31,7 +31,11 @@ const HomePage = () => {
   
   
 
-  // Function to fetch articles
+  
+
+  // Fetch articles when the page number changes
+  useEffect(() => {
+    // Function to fetch articles
   const fetchArticles = async () => {
     setLoading(true);
     try {
@@ -54,11 +58,8 @@ const HomePage = () => {
       setLoading(false);
     }
   };
-
-  // Fetch articles when the page number changes
-  useEffect(() => {
     fetchArticles();
-  }, [page, fetchArticles]);
+  }, [page]);
 
   useEffect(() => {
     if (!observerRef.current) {
