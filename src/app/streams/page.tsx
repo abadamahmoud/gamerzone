@@ -1,3 +1,4 @@
+"use client"
 import StreamCard from '@/components/StreamCard';
 import { useEffect, useState } from 'react';
 import { Stream } from '@/types';
